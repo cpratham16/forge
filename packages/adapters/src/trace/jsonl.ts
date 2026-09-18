@@ -4,7 +4,7 @@
 // corrupt/partial lines (skipped, not thrown).
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
-import type { TraceEvent, TracePort } from '@forge/contracts';
+import type { TraceEvent, TracePort, AdapterConformance } from '@forge/contracts';
 
 const DEFAULT_TRACE_DIR = '.forge/traces';
 
@@ -48,6 +48,34 @@ export class JsonlTraceSink implements TracePort {
     }
 
     this.pending.length = 0;
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'jsonl-trace-sink',
+      portName: 'TracePort',
+      enforcedGuarantees: [
+        'jsonl-persistency',
+        'run-grouped-files',
+        'corrupt-line-tolerance',
+        'atomic-append-per-run',
+        'recursive-directory-creation',
+        'pending-buffer-flush',
+      ],
+      unenforcedGuarantees: [
+        'real-time-streaming',
+        'compression',
+        'encryption-at-rest',
+        'structured-query-support',
+      ],
+      limitations: [
+        'JSONL format only (no binary/OTLP)',
+        'Local filesystem only',
+        'No automatic rotation/retention',
+        'In-memory buffer until flush()',
+        'No cross-run correlation',
+      ],
+    };
   }
 }
 

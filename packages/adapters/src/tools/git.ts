@@ -3,7 +3,7 @@
 // the git working directory.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
 import type { ToolFamily } from './types.js';
 
 const execFileAsync = promisify(execFile);
@@ -79,5 +79,31 @@ export class GitTool implements ToolFamily {
         metadata: { exitCode: failure.code ?? -1 },
       };
     }
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'git',
+      portName: 'ToolPort',
+      enforcedGuarantees: [
+        'argv-based-execution',
+        'no-shell-interpolation',
+        'workspace-cwd-enforcement',
+        'stdout-stderr-capture',
+        'exit-code-reporting',
+        'buffer-size-limit',
+      ],
+      unenforcedGuarantees: [
+        'git-binary-validation',
+        'repository-existence-check',
+        'credential-helper-isolation',
+      ],
+      limitations: [
+        'Requires git binary in PATH',
+        'Max buffer 10MB',
+        'Windows: windowsHide true',
+        'No credential handling',
+      ],
+    };
   }
 }

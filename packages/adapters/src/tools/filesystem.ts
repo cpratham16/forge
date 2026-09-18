@@ -4,7 +4,7 @@
 // also enforced upstream by the PolicyToolDecorator).
 import { promises as fs } from 'node:fs';
 import { isAbsolute, join, relative, resolve } from 'node:path';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
 import type { ToolFamily } from './types.js';
 
 const MAX_READ_CHARS = 200_000;
@@ -184,5 +184,30 @@ export class FilesystemTool implements ToolFamily {
     } catch (e) {
       return err(call.id, `FilesystemTool: ${e instanceof Error ? e.message : String(e)}`);
     }
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'filesystem',
+      portName: 'ToolPort',
+      enforcedGuarantees: [
+        'path-confinement',
+        'path-traversal-prevention',
+        'workspace-boundary-enforcement',
+        'atomic-write-via-mkdir',
+        'read-size-limit',
+      ],
+      unenforcedGuarantees: [
+        'symlink-handling',
+        'permission-preservation',
+        'atomic-rename',
+      ],
+      limitations: [
+        'Local filesystem only',
+        'Max read size 200KB',
+        'Max recursion depth 8 for list_files',
+        'No binary file support',
+      ],
+    };
   }
 }

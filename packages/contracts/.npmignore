@@ -1,0 +1,21 @@
+# Forge Contracts - npm ignore
+src/
+*.ts
+!dist/
+**/*.test.ts
+**/*.test.js
+**/*.test-d.ts
+tsconfig.json
+.gitignore
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+coverage/
+.nyc_output/
+tmp/
+temp/
