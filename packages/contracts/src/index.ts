@@ -308,10 +308,31 @@ export interface DriftItem {
 
 export interface DriftReport {
   taskId: string;
-  driftScore: number; // 0 (no drift) to 1 (high drift)
+  driftScore: number;
   items: DriftItem[];
   projectedFromTraceEvents: number;
   timestamp: number;
+}
+
+// ----- OQS (Orchestration Quality Score) -----
+export interface OQSDimensionScore {
+  name: string;
+  score: number;
+  weight: number;
+  contributingFactors: string[];
+}
+
+export interface OQSScore {
+  planQuality: number;
+  assignmentQuality: number;
+  coordination: number;
+  deliverableQuality: number;
+  efficiency: number;
+  composite: number;
+  details: {
+    driftReport: DriftReport;
+    dimensionWeights: Record<string, number>;
+  };
 }
 
 // ----- AdapterConformance -----

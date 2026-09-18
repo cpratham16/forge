@@ -1,8 +1,14 @@
 export { runSingleAgentLoop } from './orchestrator/single-agent-loop.js';
 export type { OrchestratorConfig, OrchestratorResult } from './orchestrator/single-agent-loop.js';
 
+export { runTwoAgentLoop } from './orchestrator/two-agent-loop.js';
+export type { TwoAgentConfig, TwoAgentResult } from './orchestrator/two-agent-loop.js';
+
 export { checkStopConditions } from './orchestrator/stop-conditions.js';
 export type { StopRunState, TrippedStopCondition } from './orchestrator/stop-conditions.js';
+
+export { HeuristicSubAgentRouter, createSubAgentRouter } from './orchestrator/sub-agent-router.js';
+export type { HeuristicRouterOptions } from './orchestrator/sub-agent-router.js';
 
 export { runVerificationGate, describeVerificationStatus } from './verification/gate-runner.js';
 export type { VerificationGateResult } from './verification/gate-runner.js';
@@ -18,3 +24,12 @@ export type { DefaultPolicyOptions } from './policy/default-policy.js';
 
 export { PolicyToolDecorator, defaultActionMapper } from './policy/policy-tool-decorator.js';
 export type { PolicyToolDecoratorOptions } from './policy/policy-tool-decorator.js';
+
+export { FileOwnershipToolDecorator, createFileOwnershipDecorator } from './policy/file-ownership-decorator.js';
+export type { FileOwnershipDecoratorOptions } from './policy/file-ownership-decorator.js';
+
+export { calculateOQS, DEFAULT_OQS_WEIGHTS } from './quality/oqs-scorer.js';
+export type { OQSInput, OQSWeights, OQSScore } from './quality/oqs-scorer.js';
+
+export { projectDriftReport } from './quality/drift-report.js';
+export type { DriftProjectionOptions } from './quality/drift-report.js';
