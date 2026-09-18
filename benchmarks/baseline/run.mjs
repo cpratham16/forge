@@ -63,11 +63,18 @@ export async function run({ phase }) {
   const totalInputTokens = results.reduce((sum, r) => sum + (r.input_tokens || 0), 0);
   const totalOutputTokens = results.reduce((sum, r) => sum + (r.output_tokens || 0), 0);
   const avgLatency = results.reduce((sum, r) => sum + (r.latency_ms || 0), 0) / results.length;
+  const p50LatencyMs = median(results.map((r) => r.latency_ms || 0));
 
   const summary = {
     phase,
     adapter: 'mock',
     timestamp: new Date().toISOString(),
+    // Contract fields consumed by scripts/compare-benchmark.mjs — do not rename.
+    passAt1: passed / TASKS.length,
+    costPerTaskUsd: 0,
+    latencyP50Seconds: p50LatencyMs / 1000,
+    taskCount: TASKS.length,
+    // Detailed fields for humans / inspection.
     tasks_total: TASKS.length,
     tasks_passed: passed,
     tasks_failed: failed,
@@ -79,9 +86,16 @@ export async function run({ phase }) {
     results,
   };
 
-  console.log(`Phase ${phase} baseline: ${passed}/${TASKS.length} passed (pass@1: ${summary.pass_at_1})`);
+  console.log(`Phase ${phase} baseline: ${passed}/${TASKS.length} passed (pass@1: ${summary.passAt1})`);
   console.log(`Total tokens: ${totalInputTokens} in / ${totalOutputTokens} out`);
-  console.log(`Avg latency: ${summary.avg_latency_ms}ms, total: ${totalTime}ms`);
+  console.log(`Avg latency: ${summary.avg_latency_ms}ms, p50: ${summary.latencyP50Seconds}s, total: ${totalTime}ms`);
 
   return summary;
+}
+
+function median(values) {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
 }

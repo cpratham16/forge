@@ -1,8 +1,21 @@
 #!/usr/bin/env node
 // @forge/cli — composition root and CLI entry point.
 // This is where adapters get wired into core. Concrete adapter choices belong here.
-import { runSingleAgentLoop } from '@forge/core';
-import { ClaudeModelProvider, MockModelProvider } from '@forge/adapters';
+import { runSingleAgentLoop, TraceModelProviderDecorator, DefaultPolicyPort, PolicyToolDecorator } from '@forge/core';
+import {
+  ClaudeModelProvider,
+  MockModelProvider,
+  FilesystemTool,
+  ShellTool,
+  GitTool,
+  SearchTool,
+  ToolRegistry,
+  ShellCommandVerifier,
+  JsonlTraceSink,
+  type VerifierCommand,
+} from '@forge/adapters';
+import type { ModelProvider, ModelRequest, ModelResponse, PolicyGrant, StopCondition, ToolCall } from '@forge/contracts';
+import { traceList, traceShow } from './commands/trace.js';
 
 interface RunOptions {
   task: string;
@@ -12,29 +25,106 @@ interface RunOptions {
   maxTokens?: number;
   temperature?: number;
   systemPrompt?: string;
+  workspace?: string;
+  /** Mock-only: scripted tool calls the mock "model" emits before stopping. */
+  mockToolPlan?: ToolCall[];
+  /** Wire the evidence gate: completion only when these commands pass. */
+  verify?: { commands: VerifierCommand[] };
+  /** Record model traffic through the trace decorator to a JSONL sink. */
+  trace?: boolean;
+  traceDir?: string;
+  runId?: string;
+  stopConditions?: StopCondition[];
+  grants?: PolicyGrant[];
 }
 
-export async function forgeRun(options: RunOptions): Promise<{
+export interface ForgeRunResult {
   content: string;
   model: string;
   usage: { inputTokens: number; outputTokens: number };
   turns: number;
   completed: boolean;
-}> {
-  const modelProvider = options.mock
+  runId?: string;
+  verificationStatus?: string;
+  readinessLevel?: string;
+  stopReason?: string;
+}
+
+function newRunId(): string {
+  return `r-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function buildMockPlanHandler(plan: ToolCall[], finalContent: string): (request: ModelRequest) => ModelResponse {
+  let index = 0;
+  return (_request: ModelRequest): ModelResponse => {
+    if (index < plan.length) {
+      const call = plan[index]!;
+      index++;
+      return {
+        content: '',
+        toolCalls: [call],
+        model: 'mock-model',
+        usage: { inputTokens: 10, outputTokens: 5 },
+        finishReason: 'tool_calls',
+      };
+    }
+    return {
+      content: finalContent,
+      model: 'mock-model',
+      usage: { inputTokens: 10, outputTokens: 5 },
+      finishReason: 'stop',
+    };
+  };
+}
+
+export async function forgeRun(options: RunOptions): Promise<ForgeRunResult> {
+  let modelProvider: ModelProvider = options.mock
     ? new MockModelProvider({ defaultContent: `Mock result for: ${options.task}` })
-    : new ClaudeModelProvider({
-        ...(options.model ? { model: options.model } : {}),
-      });
+    : new ClaudeModelProvider({ ...(options.model ? { model: options.model } : {}) });
+
+  if (options.mock && options.mockToolPlan !== undefined && options.mockToolPlan.length > 0) {
+    modelProvider = new MockModelProvider({
+      handler: buildMockPlanHandler(options.mockToolPlan, `Mock completion for: ${options.task}`),
+    });
+  }
+
+  const runId = options.runId ?? newRunId();
+
+  let traceSink: JsonlTraceSink | undefined;
+  if (options.trace) {
+    traceSink = new JsonlTraceSink({ dir: options.traceDir ?? '.forge/traces' });
+    modelProvider = new TraceModelProviderDecorator(modelProvider, { trace: traceSink, agent: 'main', runId });
+  }
+
+  const registry = new ToolRegistry([new FilesystemTool(), new ShellTool(), new GitTool(), new SearchTool()]);
+  const policy = new DefaultPolicyPort(options.grants !== undefined ? { grants: options.grants } : {});
+  const toolPort = new PolicyToolDecorator(registry, { policy, agent: 'main' });
+
+  const verifier =
+    options.verify !== undefined
+      ? new ShellCommandVerifier({
+          commands: options.verify.commands,
+          repoRoot: options.workspace ?? '.',
+          taskId: runId,
+        })
+      : undefined;
 
   const result = await runSingleAgentLoop(options.task, {
     modelProvider,
     systemPrompt: options.systemPrompt ?? 'You are a helpful coding assistant. Be concise.',
     maxTurns: options.maxTurns ?? 10,
     maxTokens: options.maxTokens ?? 4096,
+    tools: registry.toolDefinitions(),
+    toolPort,
+    taskId: runId,
+    workspace: options.workspace ?? '.',
+    ...(verifier !== undefined ? { verifier } : {}),
+    ...(options.stopConditions !== undefined ? { stopConditions: options.stopConditions } : {}),
     ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
     ...(options.model ? { modelMetadata: { model: options.model } } : {}),
   });
+
+  if (traceSink !== undefined) await traceSink.flush();
 
   const lastResponse = result.responses[result.responses.length - 1];
   return {
@@ -43,6 +133,14 @@ export async function forgeRun(options: RunOptions): Promise<{
     usage: result.totalUsage,
     turns: result.turns,
     completed: result.completed,
+    ...(options.trace ? { runId } : {}),
+    ...(result.verification !== undefined
+      ? {
+          verificationStatus: result.verification.status,
+          readinessLevel: result.verification.readinessLevel,
+        }
+      : {}),
+    ...(result.stopReason !== undefined ? { stopReason: result.stopReason } : {}),
   };
 }
 
@@ -51,14 +149,23 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2);
 
   if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
-    console.error('Usage: forge run "<task>" [--mock] [--model <model>] [--max-turns <n>]');
+    console.error(
+      'Usage: forge run "<task>" [--mock] [--model <model>] [--max-turns <n>]\n' +
+        '       forge trace show <run-id> [--dir <trace-dir>]\n' +
+        '       forge trace list [--dir <trace-dir>]',
+    );
     process.exit(args.length === 0 ? 1 : 0);
   }
 
-  // Parse "run" subcommand
   const subcommand = args[0];
+
+  if (subcommand === 'trace') {
+    await handleTrace(args.slice(1));
+    return;
+  }
+
   if (subcommand !== 'run') {
-    console.error(`Unknown command: ${subcommand}. Available: run`);
+    console.error(`Unknown command: ${subcommand}. Available: run, trace`);
     process.exit(1);
   }
 
@@ -91,15 +198,44 @@ async function main(): Promise<void> {
     console.error(`[forge] Turns: ${result.turns}`);
     console.error(`[forge] Tokens: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out`);
     console.error(`[forge] Completed: ${result.completed}`);
+    if (result.verificationStatus !== undefined) {
+      console.error(`[forge] Verification: ${result.verificationStatus} (readiness: ${result.readinessLevel})`);
+    }
+    if (result.stopReason !== undefined) {
+      console.error(`[forge] Stopped: ${result.stopReason}`);
+    }
     console.error('---');
 
-    // Output the result content to stdout
     process.stdout.write(result.content + '\n');
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`[forge] Error: ${message}`);
     process.exit(1);
   }
+}
+
+async function handleTrace(traceArgs: string[]): Promise<void> {
+  const sub = traceArgs[0];
+  const dirIdx = traceArgs.indexOf('--dir');
+  const dir = dirIdx !== -1 ? traceArgs[dirIdx + 1] : undefined;
+
+  if (sub === 'list') {
+    process.stdout.write(`${await traceList(dir)}\n`);
+    return;
+  }
+
+  if (sub === 'show') {
+    const runId = traceArgs[1];
+    if (!runId) {
+      console.error('Error: run-id required. Usage: forge trace show <run-id> [--dir <trace-dir>]');
+      process.exit(1);
+    }
+    process.stdout.write(`${await traceShow(runId, dir)}\n`);
+    return;
+  }
+
+  console.error('Error: trace expects a subcommand. Available: show, list');
+  process.exit(1);
 }
 
 // Run main if this is the entry point
