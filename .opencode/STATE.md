@@ -11,11 +11,11 @@
 
 | Field | Value |
 |---|---|
-| Phase | 4 — Second Agent + OQS |
-| Branch | `develop` |
-| Status | merged (PR #4) |
+| Phase | 5 — npm Publication + Self-Improvement |
+| Branch | `phase/5-npm-self-improvement` |
+| Status | in-progress |
 | Open PR | — |
-| Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
+| Last gate result | — |
 | Blockers | — |
 
 ## Phase Ledger
@@ -27,7 +27,7 @@
 | 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | merged | PASS | #2 | 2026-09-18 |
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | merged | PASS | #3 | 2026-09-18 |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
-| 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | not-started | — | — | — |
+| 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | in-progress | — | — | — |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | not-started | — | — | — |
 
 ## Benchmark Baselines
@@ -66,3 +66,4 @@
 - 2026-09-18 — started phase 4 on phase/4-agent-oqs
 - 2026-09-18 — Phase 4 local gate PASS (lint, dep-check, typecheck, 137/138 tests): SubAgentRouter heuristic (scout-then-act), two-agent loop (developer→reviewer with AgentMessage handoff, A7 blocking/non-blocking findings gate), fileOwnership ToolPort decorator (A10), Internal OQS scorer (5 dimensions: Plan Quality, Assignment Quality, Coordination, Deliverable Quality, Efficiency), DriftReport trace projection (A8); benchmark internal OQS runner with composite 0.713, gate PASS vs phase-3 baseline
 - 2026-09-18 — Phase 4 merged via PR #4 (squash 358662f). GitHub CI green on remote: `test` PASS (137/138 tests); `benchmark-gate` PASS (internal OQS composite 0.713, label `phase:4`, compare vs phase-3 baseline). Verifier report was PASS. develop == 358662f.
+- 2026-09-18 — started phase 5 on phase/5-npm-self-improvement
