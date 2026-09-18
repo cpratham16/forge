@@ -22,3 +22,17 @@ export type { FilesystemContextOptions } from './context/filesystem-schema.js';
 
 export { JsonlTraceSink, loadTraceEvents, loadRun, listRunIds, getRunId, DEFAULT_TRACE_DIR } from './trace/jsonl.js';
 export type { JsonlTraceSinkOptions, RunSummary } from './trace/jsonl.js';
+
+export { mineWeaknesses, formatWeaknessReport } from './self-improvement/weakness-miner.js';
+export type { WeaknessReport, WeaknessCluster, FailureMechanism } from './self-improvement/weakness-miner.js';
+
+export { generateProposals, saveProposals, loadProposals, formatProposal } from './self-improvement/proposal-generator.js';
+export type { HarnessProposal, EditableSurface } from './self-improvement/proposal-generator.js';
+export { getEditableSurface, listEditableSurfaces, validateSurfaceChange } from './self-improvement/editable-surface.js';
+export type { EditableSurfaceDef } from './self-improvement/editable-surface.js';
+
+export { RegressionValidator, createDefaultValidator } from './self-improvement/regression-validator.js';
+export type { TaskSpec, EvaluationResult, SplitResult, RegressionValidatorOptions } from './self-improvement/regression-validator.js';
+
+export { runSelfImprovementLoop } from './self-improvement/loop.js';
+export type { SelfImprovementOptions, LoopResult, RoundResult } from './self-improvement/loop.js';

@@ -1,7 +1,8 @@
 {
+  "phase": 4,
   "passAt1": 1,
   "costPerTaskUsd": 0,
-  "latencyP50Seconds": 0.001,
+  "latencyP50Seconds": 0.002,
   "taskCount": 1,
   "oqs": {
     "planQuality": 0.7466666666666667,
@@ -18,7 +19,7 @@
           {
             "type": "out_of_sequence",
             "description": "Agent handoff out of expected order: reviewer -> developer",
-            "detectedAt": 1789749180544,
+            "detectedAt": 1789765529985,
             "severity": "medium",
             "details": {
               "from": "reviewer",
@@ -27,7 +28,7 @@
           }
         ],
         "projectedFromTraceEvents": 16,
-        "timestamp": 1789749180544
+        "timestamp": 1789765529985
       },
       "dimensionWeights": {
         "planQuality": 0.25,
