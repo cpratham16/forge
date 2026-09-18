@@ -11,8 +11,8 @@
 
 | Field | Value |
 |---|---|
-| Phase | 2 — Adapter + Execution Kernel |
-| Branch | `phase/2-adapter-kernel` |
+| Phase | 3 — Tools, Verification, Context, Trace |
+| Branch | `phase/3-tools-verification-context-trace` |
 | Status | in-progress |
 | Open PR | — |
 | Last gate result | — |
@@ -24,8 +24,8 @@
 |---|---|---|---|---|---|
 | 0 — Foundation | `phase/0-foundation` | merged | PASS | N/A (scaffold) | 2026-09-18 |
 | 1 — Contracts & Types | `phase/1-contracts-types` | merged | PASS | #1 | 2026-09-18 |
-| 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | in-progress | — | — | — |
-| 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | not-started | — | — | — |
+| 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | merged | PASS | #2 | 2026-09-18 |
+| 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | in-progress | — | — | — |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | not-started | — | — | — |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | not-started | — | — | — |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | not-started | — | — | — |
@@ -38,7 +38,7 @@
 
 | Phase | Result file | pass@1 | cost/task | notes |
 |---|---|---|---|---|
-| 2 (baseline) | `benchmarks/results/phase-2.json` | — | — | 5-task baseline, not a formal benchmark |
+| 2 (baseline) | `benchmarks/results/phase-2.json` | 1.0 | 0ms | 5-task baseline, mock adapter |
 | 3 | `benchmarks/results/phase-3.json` | — | — | 10 Terminal-Bench tasks via Harbor |
 | 4 | `benchmarks/results/phase-4.json` | — | — | MAFBench / OrchestrationBench / internal OQS |
 | 5 | `benchmarks/results/phase-5.json` | — | — | Full Terminal-Bench + OQS re-run |
@@ -59,3 +59,5 @@
 - 2026-09-18 — completed Phase 1 contracts & types (PASS: lint, dep-check, typecheck, 3/3 tests; contracts zero-import verified)
 - 2026-09-18 — integrated HARNESS_INSPIRATIONS accepted items on branch chore/harness-inspirations (PASS: lint, dep-check, typecheck, 3/3 tests)
 - 2026-09-18 — started phase 2 on phase/2-adapter-kernel
+- 2026-09-18 — Phase 2 gate PASS (lint, dep-check, typecheck, 37/38 tests, benchmark baseline established), merged via PR #2
+- 2026-09-18 — started phase 3 on phase/3-tools-verification-context-trace
