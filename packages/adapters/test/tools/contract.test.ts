@@ -158,7 +158,7 @@ describe('git tools', () => {
     const dir = await fs.mkdtemp(join(tmpdir(), 'forge-git-'));
     try {
       await writeFile(join(dir, 'f.txt'), 'x');
-      await execFileAsync('git', ['init', '-q'], { cwd: dir });
+      await execFileAsync('git', ['init', '-q', '-b', 'main'], { cwd: dir });
       await execFileAsync('git', ['add', '.'], { cwd: dir });
       await execFileAsync('git', ['-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '-q', '-m', 'test commit'], { cwd: dir });
 
