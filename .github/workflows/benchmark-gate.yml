@@ -52,6 +52,9 @@ jobs:
       - name: Install workspace deps
         run: pnpm install --frozen-lockfile
 
+      - name: Build all packages
+        run: pnpm build
+
       - name: Run this phase's benchmark
         run: pnpm bench:phase -- --phase ${{ steps.phase.outputs.n }} --out benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json
 

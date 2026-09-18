@@ -2,7 +2,7 @@
 // (no external binary, works everywhere). Skips binary noise directories.
 import { promises as fs } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
 import type { ToolFamily } from './types.js';
 
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'coverage', '.forge', '.next', 'out']);
@@ -95,6 +95,34 @@ export class SearchTool implements ToolFamily {
       callId: call.id,
       output: matches.length === 0 ? '(no matches)' : matches.join('\n'),
       metadata: { matches: matches.length },
+    };
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'search',
+      portName: 'ToolPort',
+      enforcedGuarantees: [
+        'regex-pattern-search',
+        'workspace-path-confinement',
+        'binary-file-skip',
+        'skip-dirs-exclusion',
+        'max-file-size-limit',
+        'max-matches-limit',
+        'utf8-only-decoding',
+      ],
+      unenforcedGuarantees: [
+        'encoding-detection',
+        'binary-content-analysis',
+        'incremental-indexing',
+      ],
+      limitations: [
+        'UTF-8 only (no encoding detection)',
+        'Max file size 500KB',
+        'Max matches 200',
+        'Skips common noise directories',
+        'No incremental index (full walk each search)',
+      ],
     };
   }
 }

@@ -1,13 +1,18 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": false,
+    "paths": {
+      "@forge/contracts": ["../contracts/dist/index.js"],
+      "@forge/core": ["../core/dist/index.js"],
+      "@forge/adapters": ["../adapters/dist/index.js"]
+    }
   },
   "include": ["src/**/*"],
-  "references": [
-    { "path": "../contracts" },
-    { "path": "../core" },
-    { "path": "../adapters" }
-  ]
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

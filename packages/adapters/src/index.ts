@@ -4,6 +4,9 @@ export type { MockModelProviderOptions } from './model/mock.js';
 export { ClaudeModelProvider } from './model/claude.js';
 export type { ClaudeModelProviderOptions } from './model/claude.js';
 
+export { OpenAICompatibleModelProvider } from './model/openai-compatible.js';
+export type { OpenAICompatibleOptions } from './model/openai-compatible.js';
+
 export { FilesystemTool } from './tools/filesystem.js';
 export { ShellTool } from './tools/shell.js';
 export { GitTool } from './tools/git.js';

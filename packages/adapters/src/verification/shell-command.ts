@@ -5,7 +5,7 @@
 // status 'not_observed' — never 'verified'.
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
-import type { Evidence, VerificationPort, VerificationResult } from '@forge/contracts';
+import type { Evidence, VerificationPort, VerificationResult, AdapterConformance } from '@forge/contracts';
 
 const execAsync = promisify(exec);
 const MAX_BUFFER = 10 * 1024 * 1024;
@@ -91,6 +91,36 @@ export class ShellCommandVerifier implements VerificationPort {
       evidence,
       timestamp: Date.now(),
       readinessLevel: failed ? 'draft' : 'pr-ready',
+    };
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'shell-command-verifier',
+      portName: 'VerificationPort',
+      enforcedGuarantees: [
+        'command-sequence-execution',
+        'evidence-collection-per-command',
+        'not-observed-for-empty-commands',
+        'failed-status-on-any-failure',
+        'verified-status-on-all-success',
+        'readiness-level-mapping',
+        'per-command-timeout',
+        'buffer-size-limit',
+      ],
+      unenforcedGuarantees: [
+        'command-ordering-guarantees',
+        'parallel-execution-support',
+        'retry-on-failure',
+      ],
+      limitations: [
+        'Sequential execution only',
+        'Single timeout for all commands',
+        'No parallel execution',
+        'No retry logic',
+        'Max buffer 10MB',
+        'Timeout defaults to 120s',
+      ],
     };
   }
 }

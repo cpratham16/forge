@@ -13,6 +13,7 @@ import type {
   GitContext,
   RuleContext,
   SymbolContext,
+  AdapterConformance,
 } from '@forge/contracts';
 
 const execFileAsync = promisify(execFile);
@@ -269,6 +270,35 @@ export class FilesystemContextAdapter implements ContextPort {
       // no AGENTS.md — no rules to contribute
     }
     return rules;
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'filesystem-context',
+      portName: 'ContextPort',
+      enforcedGuarantees: [
+        'declared-inputs-priority',
+        'token-budget-enforcement',
+        'max-files-limit',
+        'relevance-scoring',
+        'path-traversal-prevention',
+        'symbol-extraction',
+        'git-history-loading',
+        'agents-md-rules-loading',
+      ],
+      unenforcedGuarantees: [
+        'incremental-context-updates',
+        'cross-file-symbol-resolution',
+        'semantic-relevance-scoring',
+      ],
+      limitations: [
+        'Max file chars 100K',
+        'Max history commits 10',
+        'UTF-8 only decoding',
+        'No binary file support',
+        'Max 500 symbols extracted',
+      ],
+    };
   }
 }
 

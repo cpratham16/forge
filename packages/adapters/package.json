@@ -2,20 +2,25 @@
   "name": "@forge/adapters",
   "version": "0.1.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@anthropic-ai/sdk": "^0.126.0",
     "@forge/contracts": "workspace:*",
     "@forge/core": "workspace:*"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "prepublishOnly": "pnpm run build"
   }
 }

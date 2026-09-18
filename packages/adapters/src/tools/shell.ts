@@ -4,7 +4,7 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import { join } from 'node:path';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
 import type { ToolFamily } from './types.js';
 
 const execAsync = promisify(exec);
@@ -58,5 +58,32 @@ export class ShellTool implements ToolFamily {
         metadata: { exitCode: failure.code ?? -1 },
       };
     }
+  }
+
+  static conformance(): AdapterConformance {
+    return {
+      adapterName: 'shell',
+      portName: 'ToolPort',
+      enforcedGuarantees: [
+        'command-execution',
+        'stdout-capture',
+        'stderr-capture',
+        'exit-code-reporting',
+        'timeout-enforcement',
+        'working-directory-isolation',
+        'buffer-size-limit',
+      ],
+      unenforcedGuarantees: [
+        'command-sanitization',
+        'environment-isolation',
+        'resource-limits',
+      ],
+      limitations: [
+        'No shell builtin support (uses exec, not shell)',
+        'Max buffer 10MB',
+        'Default timeout 30s',
+        'Windows: windowsHide true',
+      ],
+    };
   }
 }

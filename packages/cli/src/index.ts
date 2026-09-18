@@ -16,6 +16,7 @@ import {
 } from '@forge/adapters';
 import type { ModelProvider, ModelRequest, ModelResponse, PolicyGrant, StopCondition, ToolCall } from '@forge/contracts';
 import { traceList, traceShow } from './commands/trace.js';
+import { conformanceCommand } from './commands/conformance.js';
 
 interface RunOptions {
   task: string;
@@ -152,7 +153,8 @@ async function main(): Promise<void> {
     console.error(
       'Usage: forge run "<task>" [--mock] [--model <model>] [--max-turns <n>]\n' +
         '       forge trace show <run-id> [--dir <trace-dir>]\n' +
-        '       forge trace list [--dir <trace-dir>]',
+        '       forge trace list [--dir <trace-dir>]\n' +
+        '       forge conformance [--json] [--port <port>]',
     );
     process.exit(args.length === 0 ? 1 : 0);
   }
@@ -164,8 +166,14 @@ async function main(): Promise<void> {
     return;
   }
 
+  if (subcommand === 'conformance') {
+    const output = await conformanceCommand(args.slice(1));
+    process.stdout.write(`${output}\n`);
+    return;
+  }
+
   if (subcommand !== 'run') {
-    console.error(`Unknown command: ${subcommand}. Available: run, trace`);
+    console.error(`Unknown command: ${subcommand}. Available: run, trace, conformance`);
     process.exit(1);
   }
 
