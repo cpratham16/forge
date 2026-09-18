@@ -1,0 +1,76 @@
+name: Benchmark Gate
+
+# Phases 0 and 1 have no benchmark defined in docs/PHASED_PLAN.md — label
+# those PRs "phase:0" or "phase:1" and this job skips itself rather than
+# inventing a benchmark run. Label PRs for phases 2-6 with "phase:N" so the
+# job knows which phase's benchmark + baseline to use.
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, labeled]
+
+jobs:
+  benchmark-gate:
+    name: benchmark-gate
+    runs-on: ubuntu-latest
+    if: >-
+      !contains(github.event.pull_request.labels.*.name, 'phase:0') &&
+      !contains(github.event.pull_request.labels.*.name, 'phase:1')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Determine phase number from PR label
+        id: phase
+        run: |
+          LABEL=$(echo '${{ toJson(github.event.pull_request.labels.*.name) }}' | grep -oE 'phase:[0-6]' | head -n1 | cut -d: -f2)
+          if [ -z "$LABEL" ]; then
+            echo "::error::No phase:N label found on this PR (N=2..6). Add one before this check can run." 
+            exit 1
+          fi
+          echo "n=$LABEL" >> "$GITHUB_OUTPUT"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Setup Python (Harbor is a Python CLI, not an npm package)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Harbor
+        run: pip install harbor
+
+      - name: Install workspace deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Run this phase's benchmark
+        run: pnpm bench:phase -- --phase ${{ steps.phase.outputs.n }} --out benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json
+
+      - name: Compare against previous phase's baseline
+        run: |
+          PREV=$((${{ steps.phase.outputs.n }} - 1))
+          BASELINE="benchmarks/results/phase-${PREV}.json"
+          if [ ! -f "$BASELINE" ]; then
+            echo "::warning::No baseline file at $BASELINE yet — treating this as the first measured baseline, not a regression check."
+            exit 0
+          fi
+          node scripts/compare-benchmark.mjs \
+            benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json \
+            "$BASELINE"
+
+      - name: Upload benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-phase-${{ steps.phase.outputs.n }}
+          path: benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "docs/PRD.md"
+  ],
+  "default_agent": "build",
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "allow",
+      "git push * main": "deny",
+      "git push * develop": "deny",
+      "git push --force*": "deny",
+      "git push -f*": "deny",
+      "git branch -D *": "ask",
+      "git reset --hard*": "ask",
+      "gh pr merge*": "ask",
+      "gh api*": "ask",
+      "gh repo delete*": "deny",
+      "gh repo edit*": "ask",
+      "rm -rf *": "ask",
+      "npm publish*": "ask",
+      "npm login*": "ask"
+    },
+    "webfetch": "ask"
+  },
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "permission": {
+        "bash": {
+          "*": "allow",
+          "git push origin main": "deny",
+          "git push origin develop": "deny",
+          "git push --force*": "deny",
+          "git push -f*": "deny",
+          "gh pr merge*": "ask",
+          "gh api*": "ask",
+          "npm publish*": "ask"
+        },
+        "task": {
+          "*": "deny",
+          "verifier": "allow",
+          "pr-manager": "allow"
+        }
+      }
+    }
+  }
+}

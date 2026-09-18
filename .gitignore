@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+*.tsbuildinfo
+
+# Test & benchmark artifacts
+coverage/
+benchmarks/results/*-candidate.json
+.forge/
+
+# Environment & OS files
+.DS_Store
+Thumbs.db
+*.log
