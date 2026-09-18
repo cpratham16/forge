@@ -12,8 +12,8 @@
 | Field | Value |
 |---|---|
 | Phase | 5 — npm Publication + Self-Improvement |
-| Branch | `phase/5-npm-self-improvement` |
-| Status | pr-open |
+| Branch | `develop` |
+| Status | merged (PR #5) |
 | Open PR | — |
 | Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
 | Blockers | — |
@@ -27,7 +27,7 @@
 | 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | merged | PASS | #2 | 2026-09-18 |
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | merged | PASS | #3 | 2026-09-18 |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
-| 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | pr-open | PASS (local) | — | — |
+| 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | merged | PASS | #5 | 2026-09-19 |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | not-started | — | — | — |
 
 ## Benchmark Baselines
@@ -69,3 +69,4 @@
 - 2026-09-18 — started phase 5 on phase/5-npm-self-improvement
 - 2026-09-19 — Phase 5 progress: npm publication infrastructure complete (package.json updates, build scripts, .npmignore for all packages, build outputs to dist/); AdapterConformance CLI complete (`forge conformance` table + JSON, 10 adapters across 5 ports); all gate checks pass (lint, dep-check, typecheck, 146/148 tests)
 - 2026-09-19 — Phase 5 local gate PASS (lint, dep-check, typecheck, 146/148 tests): npm publication infra (A11); AdapterConformance CLI (`forge conformance`); Weakness Miner (`forge mine`); Bounded Proposals (`forge propose`); Regression Validator (`forge validate`); Self-Improvement Loop (`forge improve`); benchmark internal OQS runner with composite 0.713, gate PASS vs phase-4 baseline
+- 2026-09-19 — Phase 5 merged via PR #5 (squash f5d8f64). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (internal OQS composite 0.713, label `phase:5`, compare vs phase-4 baseline). Verifier report was PASS. develop == f5d8f64.
