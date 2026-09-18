@@ -1,0 +1,44 @@
+{
+  "phase": 4,
+  "passAt1": 1,
+  "costPerTaskUsd": 0,
+  "latencyP50Seconds": 0.002,
+  "taskCount": 1,
+  "oqs": {
+    "planQuality": 0.7466666666666667,
+    "assignmentQuality": 0.3416666666666667,
+    "coordination": 0.5916666666666667,
+    "deliverableQuality": 0.95,
+    "efficiency": 1,
+    "composite": 0.7133333333333334,
+    "details": {
+      "driftReport": {
+        "taskId": "task-4-bench",
+        "driftScore": 0.15,
+        "items": [
+          {
+            "type": "out_of_sequence",
+            "description": "Agent handoff out of expected order: reviewer -> developer",
+            "detectedAt": 1789765529985,
+            "severity": "medium",
+            "details": {
+              "from": "reviewer",
+              "to": "developer"
+            }
+          }
+        ],
+        "projectedFromTraceEvents": 16,
+        "timestamp": 1789765529985
+      },
+      "dimensionWeights": {
+        "planQuality": 0.25,
+        "assignmentQuality": 0.2,
+        "coordination": 0.2,
+        "deliverableQuality": 0.2,
+        "efficiency": 0.15
+      }
+    }
+  },
+  "mode": "internal-oqs",
+  "modeNote": "Internal OQS scorer evaluation on synthetic task with two-agent trace"
+}
