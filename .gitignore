@@ -5,6 +5,11 @@ node_modules/
 # Build outputs
 dist/
 *.tsbuildinfo
+# TypeScript composite build outputs in source directories
+packages/**/src/**/*.js
+packages/**/src/**/*.js.map
+packages/**/src/**/*.d.ts
+packages/**/src/**/*.d.ts.map
 
 # Test & benchmark artifacts
 coverage/
