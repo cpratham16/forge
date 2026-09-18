@@ -41,6 +41,8 @@
 - **Trace-first** — every model call, tool call, state transition, verification result recorded from day one
 - **Evidence-based completion** — runtime determines success, not the LLM
 - **Policy-native** — permissions enforced at runtime, not in prompts
+- **Fail-closed policy enforcement** — any policy evaluation failure (exception, timeout, malformed decision) MUST resolve to `deny`, never `allow`
+- **Non-overridable runtime floor** — security deny floor compiled into core, evaluated before user/project policy engines and impossible to override via `forge.yaml`
 - **npm-native extensibility** — agents, tools, workflows, policies are composable packages
 - **Capability isolation** — agent execution environment cannot reach the harness control plane
 

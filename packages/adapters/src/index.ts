@@ -1,4 +1,5 @@
-import type {} from '@forge/contracts';
-import type {} from '@forge/core';
+export { MockModelProvider } from './model/mock.js';
+export type { MockModelProviderOptions } from './model/mock.js';
 
-export {};
+export { ClaudeModelProvider } from './model/claude.js';
+export type { ClaudeModelProviderOptions } from './model/claude.js';

@@ -187,10 +187,14 @@ gate to pass is not an acceptable way to get unstuck — that's the failure mode
 `docs/RESEARCH_AND_DISCUSSION.md` Part 5 already describes as a flaw when the
 project cuts a corner and hides it as if it were fine.
 
-## 11. One inherited habit
+## 11. Epistemic rule: "not observed" is not "absent"
 
-`docs/RESEARCH_AND_DISCUSSION.md` exists partly as a record of citations that
-turned out to be wrong when checked. If you add a new external claim, package,
+When a check doesn't run, say it didn't run. Don't report it as a pass, and
+don't report it as a failure — "not observed" means exactly that: the evidence
+wasn't produced. This applies to your own verifier reports, trace assertions,
+and benchmark interpretations exactly as much as it applies to the code you write.
+
+Additionally, if you add a new external claim, package,
 or benchmark reference to any `docs/*.md` file, verify it against a primary
 source first (web search / the actual registry / the actual paper) rather
 than writing it from memory — the same discipline this project's own docs

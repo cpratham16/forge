@@ -12,6 +12,8 @@ benchmarks/results/*-candidate.json
 .forge/
 
 # Environment & OS files
+.env
+.env.*
 .DS_Store
 Thumbs.db
 *.log
