@@ -22,7 +22,7 @@
 
 | Phase | Branch | Status | Gate result | PR | Merged |
 |---|---|---|---|---|---|
-| 0 — Foundation | `phase/0-foundation` | not-started | — | — | — |
+| 0 — Foundation | `phase/0-foundation` | merged | PASS | N/A (scaffold) | 2026-09-18 |
 | 1 — Contracts & Types | `phase/1-contracts-types` | not-started | — | — | — |
 | 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | not-started | — | — | — |
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | not-started | — | — | — |
@@ -55,4 +55,4 @@
 
 > Append-only. One line per meaningful state transition. Don't rewrite history here.
 
-- _(empty — first entry gets written by the first `/phase-start`)_
+- 2026-09-18 — bootstrapped repository and audited Phase 0 foundation scaffold (PASS: lint, dep-check, typecheck, 3/3 tests)
