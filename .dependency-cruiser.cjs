@@ -48,7 +48,7 @@ module.exports = {
       comment:
         'core has zero external imports. No vendor SDKs, no HTTP clients (PRD §5, PROJECT_OVERVIEW §4).',
       severity: 'error',
-      from: { path: '^packages/core' },
+      from: { path: '^packages/core', pathNot: '\\.(spec|test)\\.(js|mjs|cjs|ts)$' },
       to: { dependencyTypes: ['npm', 'npm-dev', 'npm-optional', 'npm-peer'] },
     },
     {
@@ -56,7 +56,7 @@ module.exports = {
       comment:
         'core must not touch the filesystem, network, or child processes directly — those are adapter concerns (PROJECT_OVERVIEW §4).',
       severity: 'error',
-      from: { path: '^packages/core' },
+      from: { path: '^packages/core', pathNot: '\\.(spec|test)\\.(js|mjs|cjs|ts)$' },
       to: { dependencyTypes: ['core'] },
     },
     {

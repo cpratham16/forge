@@ -16,6 +16,7 @@ Establish guardrails that make every subsequent phase mechanically safe.
 - Vitest configured
 - ADR template and `docs/adr/` directory
 - README stating the dependency rule explicitly
+- Claims-test pattern for machine-verifying README assertions against repository state (A13)
 
 ### The Dependency Rule (Enforced Mechanically)
 ```
@@ -32,6 +33,7 @@ core → external SDKs (FORBIDDEN)
 - CI fails if a core file imports from adapters
 - CI fails if a core file imports an external SDK
 - `pnpm test` runs (even if zero tests)
+- **Claims-test:** verify README assertions against actual package exports and configs
 
 ### Benchmark
 None. Nothing to benchmark.
@@ -92,11 +94,13 @@ Build one real adapter against one port, prove the dependency rule holds.
 - Contract tests for `ModelProvider` run against Claude adapter
 - `packages/core/orchestrator`: single-agent loop depending only on `ModelProvider` (injected)
 - CLI command: `forge run "task"` wiring adapter into orchestrator
+- `AdapterConformance` declaration (A11): adapter states enforced vs unenforced guarantees and limitations, surfaced by CLI
 
 ### Tests
 - Contract tests: Claude adapter passes same behavioral tests as mock adapter
 - Integration test: `forge run "list the files in src/"` produces valid `ModelResponse`
 - **Import boundary test:** orchestrator module does not import `@anthropic-ai/sdk`
+- **Adapter conformance test:** verify adapter returns valid `AdapterConformance` structure
 
 ### Benchmark
 - Run 5 simple tasks through CLI. Record token usage, latency, success rate. **This is your baseline.**
@@ -117,7 +121,14 @@ Add the ports that make Forge a harness, not just a model wrapper. Add tracing *
 - `VerificationPort` + shell-command adapter (build/test/lint runner). Wire "no self-declared done" gate.
 - `ContextPort` + filesystem-schema adapter: assembles a task-specific `ContextPack` (relevant files, symbols, git history, rules) from repo state. **Correction:** this port was defined as a contract in Phase 1 but had no owning phase in the original plan (it's milestone M7 in `PRD.md`) — it belongs here, alongside the other adapters that make the harness usable end to end.
 - `TracePort` as **decorator around `ModelProvider`** (POLAR pattern) + JSONL adapter. **Must not touch orchestrator.** Wraps an existing port.
-- `PolicyPort` as **decorator around `ToolPort`** (auto/confirm/deny risk tiers). Same pattern.
+- Human-readable trace summary command: `forge trace show <run-id>` alongside JSONL sink (A12)
+- `PolicyPort` as **decorator around `ToolPort`** (auto/confirm/deny risk tiers):
+  - **Fail-closed evaluation (A1):** any evaluation failure (exception, timeout, malformed `PolicyDecision`, unreachable policy process) MUST resolve to `deny`. Never `allow`.
+  - `RUNTIME_FLOOR` (A2): non-overridable deny list compiled in core, evaluated *before* configurable rule engine, not loadable/overridable from `forge.yaml`.
+  - **Default rule set (A4):** modeled on CCH matrix (deny verification bypass `git commit --no-verify`/`-n`, destructive reset on protected branches, force push, secrets in diffs; warn on protected-file edits `package.json`/workflows/`Dockerfile`; strict deny for `.env` and key material).
+  - `PolicyGrant` (A9): scoped, plan-time approval mechanism allowing temporary scoped permissions without weakening `RUNTIME_FLOOR`.
+- `VerificationResult` handling (A3 & A5): support `not_observed` status (must never count as pass, nor silently render as fail) and `ReadinessLevel` (`draft` | `pr-ready` | `release-ready`).
+- `StopCondition` enforcement (A6): `Task.stopConditions` checked in orchestrator retry path before every retry attempt.
 
 ### Tests
 - Contract tests for each tool adapter
@@ -125,6 +136,12 @@ Add the ports that make Forge a harness, not just a model wrapper. Add tracing *
 - **Context test:** `ContextPort` returns a pack within the configured token budget and includes files touched by the task's stated inputs
 - **Decoration test:** adding trace decorator does not change orchestrator behavior (same outputs, same decisions)
 - **Policy test:** `DENY` decision blocks tool execution
+- **Fail-closed policy test (A1, non-negotiable):** inject exception, timeout, and malformed `PolicyDecision`, and assert in each case that the underlying tool **never executed**
+- **Runtime floor test (A2):** verify that a `forge.yaml` attempting to permit a floor-denied action still results in `deny`
+- **Default policy matrix test (A4):** verify secrets, verification bypass, and destructive resets trigger deny/warn as specified
+- **`not_observed` status test (A3):** verify `not_observed` status is neither counted as pass nor rendered silently as failure
+- **Stop condition retry test (A6):** verify retry path terminates immediately when a `StopCondition` threshold is reached
+- **Policy grant test (A9):** verify valid `PolicyGrant` allows targeted action while expired/unmatched grant denies execution
 
 ### Benchmark
 - Run 10 Terminal-Bench tasks through `forge run` using Harbor. Record pass@1, token usage, latency, cost. Compare to Phase 2 baseline.
@@ -143,11 +160,17 @@ Add a second declarative agent (reviewer) and measure orchestration quality, not
 
 ### Deliverables
 - `AgentMessage` handoff between exactly two agents (developer → reviewer)
+- Blocking findings gate DONE (A7): `ReviewResult` distinguishes `blockingFindings` from `nonBlockingFindings`; only blocking findings prevent DONE state.
+- `fileOwnership` enforcement (A10): `AgentSpec.fileOwnership` enforced in `ToolPort` decorator to ensure multi-agent executions are structurally conflict-free.
 - `SubAgentRouter` port with heuristic scout-then-act strategy (no LLM classifier yet)
 - **Internal orchestration scorer**: Plan Quality, Assignment Quality, Coordination, Deliverable Quality, Efficiency per run. Store in trace.
+- `DriftReport` as trace projection (A8): `DriftReport` + `DriftType` computed as a projection over trace events (not a separate store), and wired into internal OQS scorer's Coordination dimension as a judge-free, computable orchestration signal (answering open question in `PRD.md` §12).
 
 ### Tests
 - Integration test: two-agent handoff produces reviewer finding that developer can repair
+- **Review findings gate test (A7):** non-blocking findings allow DONE state, while blocking findings prevent completion
+- **File ownership isolation test (A10):** `ToolPort` decorator denies file modification outside agent's declared `fileOwnership`
+- **Drift report trace projection test (A8):** verify `DriftReport` computes accurately from trace events and feeds Coordination dimension in OQS
 - **Orchestration scorer test:** verify scorer correctly identifies known-good plan vs. known-bad plan
 - Regression test: reviewer agent cannot modify files (permission enforcement)
 
@@ -171,6 +194,7 @@ Ship v0.1, gather real traces, close the loop.
 
 ### Deliverables
 - Publish `@forge/cli` to npm (real usage before ambitious layer)
+- Surface `AdapterConformance` across published CLI adapters (A11)
 - **Weakness mining** script: analyze failure traces to identify reusable failure mechanisms. Cluster by mechanism: missing final artifact, repeated invalid command, no recovery after tool error, exploration without implementation.
 - **Bounded proposal** system: define editable surface (system prompt, tool selection rules, verification middleware, recovery policy). Each proposal states behavior changed and regression risk.
 - **Regression validation**: candidate harness re-runs against held-in and held-out splits. Accept only if at least one improves without the other regressing.
@@ -204,11 +228,13 @@ Replace heuristic routing with complexity-aware dynamic graph generation.
   - Small task → single agent
   - Medium task → explorer → planner → developer → tester
   - Complex task → research → architecture → security → parallel implementation → integration tests → adversarial review → repair → verification
+- **Workflow Presets:** support `disciplined-v1` preset (Investigate → Plan → Work → Review → PR → Release pipeline) selectable in `forge.yaml` alongside `adaptive` — provided as an opt-in preset, not a mandatory core pipeline.
 - **Model router**: route models based on task capability, cost/latency budget, context size — not user configuration.
 
 ### Tests
 - **Classification test:** rename classified LOW, payment feature classified HIGH
 - **Graph generation test:** HIGH task graph includes security analysis and adversarial review
+- **Workflow preset test:** selecting `disciplined-v1` in `forge.yaml` executes strict 6-stage pipeline
 - **Model routing test:** classification task routes to cheap/fast model; architecture task routes to reasoning model
 
 ### Benchmark

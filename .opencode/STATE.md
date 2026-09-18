@@ -11,9 +11,9 @@
 
 | Field | Value |
 |---|---|
-| Phase | _(none started yet)_ |
-| Branch | — |
-| Status | not-started |
+| Phase | 2 — Adapter + Execution Kernel |
+| Branch | `phase/2-adapter-kernel` |
+| Status | in-progress |
 | Open PR | — |
 | Last gate result | — |
 | Blockers | — |
@@ -23,8 +23,8 @@
 | Phase | Branch | Status | Gate result | PR | Merged |
 |---|---|---|---|---|---|
 | 0 — Foundation | `phase/0-foundation` | merged | PASS | N/A (scaffold) | 2026-09-18 |
-| 1 — Contracts & Types | `phase/1-contracts-types` | not-started | — | — | — |
-| 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | not-started | — | — | — |
+| 1 — Contracts & Types | `phase/1-contracts-types` | merged | PASS | #1 | 2026-09-18 |
+| 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | in-progress | — | — | — |
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | not-started | — | — | — |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | not-started | — | — | — |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | not-started | — | — | — |
@@ -56,3 +56,6 @@
 > Append-only. One line per meaningful state transition. Don't rewrite history here.
 
 - 2026-09-18 — bootstrapped repository and audited Phase 0 foundation scaffold (PASS: lint, dep-check, typecheck, 3/3 tests)
+- 2026-09-18 — completed Phase 1 contracts & types (PASS: lint, dep-check, typecheck, 3/3 tests; contracts zero-import verified)
+- 2026-09-18 — integrated HARNESS_INSPIRATIONS accepted items on branch chore/harness-inspirations (PASS: lint, dep-check, typecheck, 3/3 tests)
+- 2026-09-18 — started phase 2 on phase/2-adapter-kernel
