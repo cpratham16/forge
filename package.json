@@ -15,7 +15,9 @@
     "test:watch": "vitest",
     "bench:phase": "node --import tsx scripts/bench-phase.mjs",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "build": "pnpm --filter @forge/contracts run build && pnpm --filter @forge/core run build && pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build",
+    "release": "pnpm build && pnpm test && pnpm dep-check && pnpm lint"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
