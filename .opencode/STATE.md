@@ -11,11 +11,11 @@
 
 | Field | Value |
 |---|---|
-| Phase | 3 — Tools, Verification, Context, Trace |
-| Branch | `develop` |
-| Status | merged (PR #3) |
+| Phase | 4 — Second Agent + OQS |
+| Branch | `phase/4-agent-oqs` |
+| Status | in-progress |
 | Open PR | — |
-| Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
+| Last gate result | — |
 | Blockers | — |
 
 ## Phase Ledger
@@ -26,7 +26,7 @@
 | 1 — Contracts & Types | `phase/1-contracts-types` | merged | PASS | #1 | 2026-09-18 |
 | 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | merged | PASS | #2 | 2026-09-18 |
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | merged | PASS | #3 | 2026-09-18 |
-| 4 — Second Agent + OQS | `phase/4-agent-oqs` | not-started | — | — | — |
+| 4 — Second Agent + OQS | `phase/4-agent-oqs` | in-progress | — | — | — |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | not-started | — | — | — |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | not-started | — | — | — |
 
@@ -63,3 +63,4 @@
 - 2026-09-18 — started phase 3 on phase/3-tools-verification-context-trace
 - 2026-09-18 — Phase 3 local gate PASS (lint, dep-check, typecheck, 104/105 tests): ToolPort+adapters+registry, ShellCommandVerifier (A3 not_observed), FilesystemContextAdapter, JsonlTraceSink + trace show/list (A12), PolicyToolDecorator (A1 fail-closed, A2 runtime floor, A4 default matrix, A9 grants), TraceModelProviderDecorator, stop-condition termination (A6), read→edit→run CLI integration; benchmark fallback mode (no Harbor credentials in env) — impl + gate green, pending verifier report & GitHub CI before merge
 - 2026-09-18 — Phase 3 merged via PR #3 (squash 5ab6a78). GitHub CI green on remote: `test` PASS (the one CI test-failure — git `master` vs `main` default branch — fixed by pinning `git init -b main`); `benchmark-gate` PASS (label `phase:3`, Harbor-in-CI bootstrap, compare vs phase-2 baseline). Verifier report was PASS. develop == 5ab6a78.
+- 2026-09-18 — started phase 4 on phase/4-agent-oqs
