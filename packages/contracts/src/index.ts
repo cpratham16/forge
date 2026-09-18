@@ -64,11 +64,21 @@ export interface ToolPort {
 }
 
 // ----- VerificationPort -----
+export type VerificationStatus = 'verified' | 'failed' | 'skipped' | 'not_observed';
+
+export type ReadinessLevel = 'draft' | 'pr-ready' | 'release-ready';
+
+/**
+ * VerificationResult:
+ * Note: 'not_observed' means the check did not run or produced no evidence.
+ * MUST NEVER be counted as a pass, and MUST NOT be silently rendered as a fail.
+ */
 export interface VerificationResult {
   taskId: string;
-  status: 'verified' | 'failed' | 'skipped';
+  status: VerificationStatus;
   evidence: Evidence[];
   timestamp: number;
+  readinessLevel: ReadinessLevel;
 }
 
 export interface Evidence {
@@ -191,6 +201,16 @@ export interface ActionRequest {
   agent: string;
 }
 
+export interface PolicyGrant {
+  id: string;
+  grantee: string;
+  actionType: 'read' | 'write' | 'execute' | 'network' | 'delete';
+  resourcePattern: string;
+  expiresAt?: number;
+  approvedBy: string;
+  rationale: string;
+}
+
 export interface PolicyPort {
   evaluate(action: ActionRequest): Promise<PolicyDecision>;
 }
@@ -200,6 +220,7 @@ export interface AgentSpec {
   name: string;
   capabilities: string[];
   costTier: 'fast' | 'balanced' | 'reasoning';
+  fileOwnership: string[];
 }
 
 export interface AgentSelection {
@@ -213,6 +234,20 @@ export interface SubAgentRouter {
 }
 
 // ----- Domain types used by Task -----
+export interface StopCondition {
+  type: 'max_retries' | 'cost_limit' | 'time_limit' | 'consecutive_failures' | 'custom';
+  threshold: number | string;
+  description?: string;
+}
+
+export type TaskComplexity = 'LOW' | 'MEDIUM' | 'HIGH';
+export type ApprovalState = 'draft' | 'approved' | 'rejected';
+
+export interface TaskScope {
+  in: string[];
+  out: string[];
+}
+
 export interface Task {
   id: string;
   objective: string;
@@ -221,6 +256,10 @@ export interface Task {
   retryPolicy: RetryPolicy;
   modelPolicy: ModelPolicy;
   dependencies: string[];
+  scope: TaskScope;
+  estimatedComplexity: TaskComplexity;
+  approvalState: ApprovalState;
+  stopConditions: StopCondition[];
 }
 
 export interface AgentMessage {
@@ -229,6 +268,60 @@ export interface AgentMessage {
   type: 'finding' | 'question' | 'task' | 'review' | 'failure' | 'completion';
   payload: unknown;
   evidence?: Evidence[];
+}
+
+// ----- ReviewResult -----
+export interface ReviewFinding {
+  id: string;
+  severity: 'critical' | 'major' | 'minor' | 'info';
+  category: string;
+  description: string;
+  filePath?: string;
+  lineNumber?: number;
+  suggestion?: string;
+}
+
+export interface ReviewResult {
+  reviewer: string;
+  approved: boolean;
+  blockingFindings: ReviewFinding[];
+  nonBlockingFindings: ReviewFinding[];
+  summary: string;
+  timestamp: number;
+}
+
+// ----- DriftReport -----
+export type DriftType =
+  | 'unplanned_task'
+  | 'omitted_task'
+  | 'out_of_sequence'
+  | 'scope_creep'
+  | 'unexpected_file_modification';
+
+export interface DriftItem {
+  type: DriftType;
+  description: string;
+  detectedAt: number;
+  severity: 'low' | 'medium' | 'high';
+  details?: Record<string, unknown>;
+}
+
+export interface DriftReport {
+  taskId: string;
+  driftScore: number; // 0 (no drift) to 1 (high drift)
+  items: DriftItem[];
+  projectedFromTraceEvents: number;
+  timestamp: number;
+}
+
+// ----- AdapterConformance -----
+export interface AdapterConformance {
+  adapterName: string;
+  portName: string;
+  enforcedGuarantees: string[];
+  unenforcedGuarantees: string[];
+  limitations: string[];
+  verifiedAt?: number;
 }
 
 // ----- Supporting types previously missing -----

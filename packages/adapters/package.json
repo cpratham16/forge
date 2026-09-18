@@ -11,6 +11,7 @@
     }
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.126.0",
     "@forge/contracts": "workspace:*",
     "@forge/core": "workspace:*"
   },
