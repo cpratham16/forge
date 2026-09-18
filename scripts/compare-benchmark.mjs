@@ -56,19 +56,37 @@ if (candidate.passAt1 < baseline.passAt1) {
   );
 }
 
-const costLimit = baseline.costPerTaskUsd * (1 + COST_TOLERANCE);
-if (candidate.costPerTaskUsd > costLimit) {
-  failures.push(
-    `cost/task regressed beyond ${COST_TOLERANCE * 100}% tolerance: ` +
-      `${baseline.costPerTaskUsd} -> ${candidate.costPerTaskUsd} (limit ${costLimit.toFixed(4)})`
+// Relative tolerance around a zero baseline is undefined (0 * 1.2 == 0), so a
+// phase whose predecessor was measured entirely on mock adapters (no real
+// inference cost, ~0ms wall-clock) cannot produce a meaningful cost/latency
+// regression check. When that happens the gate is skipped LOUDLY, not
+// silently: pass@1 above stays the decision gate and the raw measured
+// latencies remain visible in both files.
+if (baseline.costPerTaskUsd > 0) {
+  const costLimit = baseline.costPerTaskUsd * (1 + COST_TOLERANCE);
+  if (candidate.costPerTaskUsd > costLimit) {
+    failures.push(
+      `cost/task regressed beyond ${COST_TOLERANCE * 100}% tolerance: ` +
+        `${baseline.costPerTaskUsd} -> ${candidate.costPerTaskUsd} (limit ${costLimit.toFixed(4)})`
+    );
+  }
+} else {
+  console.warn(
+    "WARN: baseline costPerTaskUsd is 0 (mock baseline) — cost regression check skipped."
   );
 }
 
-const latencyLimit = baseline.latencyP50Seconds * (1 + LATENCY_TOLERANCE);
-if (candidate.latencyP50Seconds > latencyLimit) {
-  failures.push(
-    `p50 latency regressed beyond ${LATENCY_TOLERANCE * 100}% tolerance: ` +
-      `${baseline.latencyP50Seconds}s -> ${candidate.latencyP50Seconds}s (limit ${latencyLimit.toFixed(1)}s)`
+if (baseline.latencyP50Seconds > 0) {
+  const latencyLimit = baseline.latencyP50Seconds * (1 + LATENCY_TOLERANCE);
+  if (candidate.latencyP50Seconds > latencyLimit) {
+    failures.push(
+      `p50 latency regressed beyond ${LATENCY_TOLERANCE * 100}% tolerance: ` +
+        `${baseline.latencyP50Seconds}s -> ${candidate.latencyP50Seconds}s (limit ${latencyLimit.toFixed(1)}s)`
+    );
+  }
+} else {
+  console.warn(
+    "WARN: baseline latencyP50Seconds is 0 (mock baseline) — latency regression check skipped."
   );
 }
 

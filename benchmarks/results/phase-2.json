@@ -1,0 +1,69 @@
+{
+  "phase": 2,
+  "adapter": "mock",
+  "timestamp": "2026-09-18T14:31:36.125Z",
+  "passAt1": 1,
+  "costPerTaskUsd": 0,
+  "latencyP50Seconds": 0,
+  "taskCount": 5,
+  "tasks_total": 5,
+  "tasks_passed": 5,
+  "tasks_failed": 0,
+  "pass_at_1": 1,
+  "total_input_tokens": 50,
+  "total_output_tokens": 25,
+  "avg_latency_ms": 1,
+  "total_time_ms": 3,
+  "results": [
+    {
+      "task": "List the files in the src/ directory",
+      "success": true,
+      "content_length": 53,
+      "model": "mock-model",
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "turns": 1,
+      "latency_ms": 2
+    },
+    {
+      "task": "Explain what a hexagonal architecture is in two sentences",
+      "success": true,
+      "content_length": 74,
+      "model": "mock-model",
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "turns": 1,
+      "latency_ms": 0
+    },
+    {
+      "task": "Write a TypeScript function that adds two numbers",
+      "success": true,
+      "content_length": 66,
+      "model": "mock-model",
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "turns": 1,
+      "latency_ms": 0
+    },
+    {
+      "task": "What is the purpose of dependency injection?",
+      "success": true,
+      "content_length": 61,
+      "model": "mock-model",
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "turns": 1,
+      "latency_ms": 1
+    },
+    {
+      "task": "Describe the difference between unit tests and integration tests",
+      "success": true,
+      "content_length": 81,
+      "model": "mock-model",
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "turns": 1,
+      "latency_ms": 0
+    }
+  ]
+}
