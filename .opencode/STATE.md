@@ -23,7 +23,7 @@
 | Phase | Branch | Status | Gate result | PR | Merged |
 |---|---|---|---|---|---|
 | 0 — Foundation | `phase/0-foundation` | merged | PASS | N/A (scaffold) | 2026-09-18 |
-| 1 — Contracts & Types | `phase/1-contracts-types` | not-started | — | — | — |
+| 1 — Contracts & Types | `phase/1-contracts-types` | merged | PASS | #1 | 2026-09-18 |
 | 2 — Adapter + Execution Kernel | `phase/2-adapter-kernel` | not-started | — | — | — |
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | not-started | — | — | — |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | not-started | — | — | — |
@@ -56,3 +56,4 @@
 > Append-only. One line per meaningful state transition. Don't rewrite history here.
 
 - 2026-09-18 — bootstrapped repository and audited Phase 0 foundation scaffold (PASS: lint, dep-check, typecheck, 3/3 tests)
+- 2026-09-18 — completed Phase 1 contracts & types (PASS: lint, dep-check, typecheck, 3/3 tests; contracts zero-import verified)
