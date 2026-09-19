@@ -87,7 +87,8 @@ main                                ← production. Protected. PR from develop o
      ├─ phase/3-tools-verification-context-trace
      ├─ phase/4-agent-oqs
      ├─ phase/5-npm-self-improvement
-     └─ phase/6-adaptive-orchestration
+     ├─ phase/6-adaptive-orchestration
+     └─ phase/7-capability-isolation-v1
 ```
 
 Rules:
@@ -101,7 +102,7 @@ Rules:
   and PR that into the phase branch instead of into `develop`.
 - `develop` moves forward only through green phase-branch PRs. `main` moves
   forward only through green `develop` PRs, opened at defined release points
-  (currently: after M12 for `v0.1.0`, and after Phase 6 for `v1.0.0` — see
+  (currently: after M12 for `v0.1.0`, and after Phase 7 for `v1.0.0` — see
   `docs/PRD.md` §11).
 - Never force-push `main` or `develop`. Force-pushing a `phase/*` branch to
   clean up your own history before opening a PR is fine.

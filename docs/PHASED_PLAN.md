@@ -249,6 +249,86 @@ Replace heuristic routing with complexity-aware dynamic graph generation.
 
 ---
 
+## Phase 7 — Capability Isolation + v1.0 Gate Completion
+
+> **Scope note:** This phase is an **addition to the original roadmap**, which ended at
+> Phase 6 (release of `v1.0.0`). It exists because two promises from `PRD.md` are
+> still unmet after Phase 6: the §5 core principle **capability isolation** (the
+> agent execution environment must not reach the harness control plane) was never
+> delivered as a runtime feature, and the v1.0 success metrics in §10 are not yet
+> all closed (internal OQS composite 0.697 < 0.7 target; RigorBench unmeasured;
+> real Terminal-Bench eval deferred; self-improvement loop not run end-to-end to ≥ 3
+> accepted edits). The release point for `v1.0.0` moves from "after Phase 6" to
+> "after Phase 7" accordingly (see `AGENTS.md` §5 and `docs/PRD.md` §11).
+
+### Goal
+Deliver capability isolation (the last undeployed §5 core principle) and close the
+remaining v1.0 success-metric gates so the release point after this phase can be a
+defensible `v1.0.0`.
+
+### Deliverables
+- **Capability isolation**: agent execution environment must not have network access
+  to the harness control interface. Control plane and data plane separated at the
+  network level, not just the policy level (`RESEARCH_AND_DISCUSSION.md` Part 3,
+  Flaw 3 — the CVE-2026-82533 trust-boundary lesson: policy tiers alone are
+  insufficient if a spoofed `Host` header can reach the control API).
+  - Enforced in `packages/core` as a runtime boundary (non-overridable via
+    `forge.yaml`, same tier as the A2 `RUNTIME_FLOOR`), evaluated **before** the
+    configurable policy engines, fail-closed on any evaluation failure.
+- **v1.0 gate closure**:
+  - Internal OQS composite ≥ 0.7 on the standard synthetic evaluation (Phase 6
+    measured 0.697 on the same runner).
+  - RigorBench process-discipline baseline **measured** (Planning Fidelity,
+    Verification Coverage, Recovery Efficiency, Abstention Quality, Atomic
+    Transition Integrity) so the v1.0 "≥ 41% improvement" target has a number to
+    improve against — treat the 41%/17% figure as directional, not settled
+    (caveat in Phase 4 / `RESEARCH_AND_DISCUSSION.md` Part 3).
+  - Cost per verified task measured vs. the Phase 2 baseline (target ≤ 50%).
+  - Self-improvement loop: ≥ 3 harness edits accepted through the existing
+    hold-in/hold-out regression validator (Self-Harness discipline, Phase 5).
+  - Terminal-Bench 2.0 eval: real Harbor run if credentials exist in the
+    environment; otherwise fallback mode recorded honestly as `not_observed`,
+    never reported as a pass (`AGENTS.md` §11).
+
+### Tests
+- **Capability isolation test:** a tool/model execution attempt to reach the harness
+  control interface is denied at the network boundary — never reaches the control
+  plane.
+- **Fail-closed isolation test (non-negotiable):** inject exception, timeout, and
+  malformed boundary-evaluation outcomes, and assert each results in **denial** and
+  the control plane is never touched.
+- **Non-overridability test:** `forge.yaml` attempting to disable or weaken the
+  isolation boundary still results in enforcement (mirrors A2 floor behavior).
+- **OQS threshold test:** known-good vs. known-bad runs score as expected and the
+  standard composite evaluates ≥ 0.7.
+- **RigorBench projection test:** trace-projected pillar scores computed correctly
+  on a synthetic trace (same projection pattern as A8 `DriftReport`).
+- **Self-improvement acceptance test:** only edits passing hold-in/hold-out
+  regression validation are accepted; ≥ 3 accepted edits are recorded.
+- **Cost attribution test:** cost per verified task attributed per agent and phase,
+  compared against the Phase 2 baseline.
+
+### Benchmark
+- Internal OQS composite ≥ 0.7 on the Phase 6 synthetic evaluation — no regression
+  vs. the Phase 6 baseline stored in `benchmarks/results/phase-6.json`.
+- RigorBench pillar baseline (first measurement — this phase establishes the
+  baseline; the 41% improvement is graded at a later release point against it).
+- Cost per verified task vs. Phase 2 baseline (target ≤ 50%).
+- Terminal-Bench 2.0 via Harbor (Python CLI, subprocess) if credentials exist;
+  otherwise fallback mode + explicitly `not_observed` in the gate result.
+
+### References
+- `RESEARCH_AND_DISCUSSION.md` Part 3 (Flaw 3) — CVE-2026-82533 trust-boundary
+  analysis motivating the network-level isolation layer.
+- `docs/PHASED_PLAN.md` Phase 4 — RigorBench (with caveat), internal OQS.
+- `docs/PHASED_PLAN.md` Phase 3 — Harbor correction (Python CLI, subprocess).
+- `docs/PHASED_PLAN.md` Phase 5 — Self-Harness hold-in/hold-out promotion
+  discipline (corrected figures).
+- `docs/PRD.md` §5 (capability isolation principle), §10 (v1.0 success metrics),
+  §11 (release point after Phase 7).
+
+---
+
 ## Cross-Phase: What You Should NOT Build
 
 - ❌ Your own LLM

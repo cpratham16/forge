@@ -18,7 +18,7 @@ autonomous** — see @AGENTS.md §8. Do the following, and stop where indicated:
    `Gate result: PASS` in STATE.md's Phase Ledger. If any row is missing a
    PASS, stop and report which one — do not proceed.
 2. Determine which release this is: `v0.1.0` if this is the first release
-   (post-M12, per `docs/PRD.md` §11), `v1.0.0` if it's post-Phase-6, otherwise
+   (post-M12, per `docs/PRD.md` §11), `v1.0.0` if it's post-Phase-7, otherwise
    ask the user what version this should be.
 3. Summarize for the human, in chat, before touching git:
    - Every phase/PR included since the last release
