@@ -11,11 +11,11 @@
 
 | Field | Value |
 |---|---|
-| Phase | 6 — Adaptive Orchestration |
-| Branch | `phase/6-adaptive-orchestration` |
-| Status | merged (PR #8) |
+| Phase | 7 — Capability Isolation + v1.0 Gate Completion |
+| Branch | `phase/7-capability-isolation-v1` |
+| Status | in-progress |
 | Open PR | — |
-| Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
+| Last gate result | — |
 | Blockers | — |
 
 ## Phase Ledger
@@ -29,6 +29,7 @@
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | merged | PASS | #5, #6 | 2026-09-19 |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | merged | PASS | #8 | 2026-09-19 |
+| 7 — Capability Isolation + v1.0 Gate Completion | `phase/7-capability-isolation-v1` | in-progress | — | — | — |
 
 ## Benchmark Baselines
 
@@ -49,7 +50,7 @@
 | Version | Trigger | develop→main PR | Date |
 |---|---|---|---|
 | v0.1.0 | After M12 (npm publish) | — | — |
-| v1.0.0 | After Phase 6 | — | — |
+| v1.0.0 | After Phase 7 | — | — |
 
 ## Change Log
 
@@ -74,3 +75,4 @@
 - 2026-09-19 — started phase 6 on phase/6-adaptive-orchestration
 - 2026-09-19 — Phase 6 local gate PASS (lint, dep-check, typecheck, 146/148 tests): Complexity classifier (LOW/MEDIUM/HIGH), adaptive orchestration graph (LOW/MEDIUM/HIGH), workflow presets (disciplined-v1), model router (capability/cost/latency), MAFBench runner; benchmark internal OQS composite 0.697, gate PASS vs phase-5 baseline
 - 2026-09-19 — Phase 6 merged via PR #8 (squash). GitHub CI green on remote: `test` PASS (146/148 tests); `benchmark-gate` PASS (MAFBench specialization/overhead, internal OQS composite 0.697). Verifier report was PASS. develop == 5acf7f7.
+- 2026-09-19 — started phase 7 on phase/7-capability-isolation-v1
