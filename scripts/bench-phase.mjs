@@ -26,8 +26,8 @@ const getArg = (flag) => {
 const phase = Number(getArg('--phase'));
 const out = getArg('--out') ?? `benchmarks/results/phase-${phase}-candidate.json`;
 
-if (!Number.isInteger(phase) || phase < 0 || phase > 6) {
-  console.error('Usage: pnpm bench:phase -- --phase <0-6> [--out <path>]');
+if (!Number.isInteger(phase) || phase < 0 || phase > 7) {
+  console.error('Usage: pnpm bench:phase -- --phase <0-7> [--out <path>]');
   process.exit(2);
 }
 
@@ -44,6 +44,7 @@ const RUNNERS = {
   4: 'benchmarks/oqs/run.mjs',            // internal OQS (1 synthetic task)
   5: 'benchmarks/oqs/run.mjs',            // full internal OQS five-dimension evaluation
   6: 'benchmarks/maf/run.ts',             // specialization + framework overhead modules
+  7: 'benchmarks/phase-7/run.ts',         // v1.0 gate closure: OQS>=0.7, RigorBench baseline, cost, self-improvement>=3, isolation
 };
 
 const runnerPath = RUNNERS[phase];

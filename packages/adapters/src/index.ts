@@ -39,3 +39,12 @@ export type { SelfImprovementOptions, LoopResult, RoundResult } from './self-imp
 
 export { MODEL_CAPABILITIES } from './model/capabilities.js';
 export type { ModelCapability } from './model/capabilities.js';
+
+export {
+  createCapabilityIsolationDecorator,
+  controlPlaneSurfaceFromEnv,
+  FORGE_CONTROL_HOSTS_ENV,
+  FORGE_CONTROL_PORT_ENV,
+  FORGE_CONTROL_PATHS_ENV,
+} from './policy/capability-isolation.js';
+export type { CapabilityIsolationConfig } from './policy/capability-isolation.js';

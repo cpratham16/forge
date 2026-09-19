@@ -23,7 +23,7 @@ checking the source first. That discipline is the same one applied in
 | Plan→Work→Review→Sync→Release, 5 stages | ⚠️ Slightly off | README's loop is **Investigate → Plan → Work → Review → PR → Release** (6 rows), with five *verb skills*: plan, work, review, sync, release |
 | Three single-screen HTML views | ❓ Unverified | Not found in README or the docs index. Also collides with a PRD non-goal — see Part 4 |
 | Machine-checked README | ❓ Unverified | Not found as a documented CCH feature. The idea still has merit on its own — see Part 3 |
-| "Phase 7" (items 2.1) | ❌ No such phase | Forge has Phases 0–6 only. `ContextPort` is **Phase 3** (see `PHASED_PLAN.md` Phase 3 correction note) |
+| "Phase 7" (items 2.1) | ⚠️ Corrected since | This row predates the Phase 7 extension. Forge's roadmap now **does** include a Phase 7 — capability isolation + v1.0 gate closure (`PHASED_PLAN.md` Phase 7, `PRD.md` §11 extension note). `ContextPort` is **Phase 3**; it is not the thing the earlier "no such phase" verdict referred to |
 
 ---
 

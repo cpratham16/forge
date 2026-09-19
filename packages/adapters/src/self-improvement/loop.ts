@@ -3,7 +3,7 @@
 import { promises as fs } from 'node:fs';
 import { mineWeaknesses } from './weakness-miner.js';
 import { generateProposals, saveProposals, type HarnessProposal } from './proposal-generator.js';
-import { createDefaultValidator, type TaskSpec, type EvaluationResult } from './regression-validator.js';
+import { createDefaultValidator, type EvaluationResult, type TaskSpec } from './regression-validator.js';
 
 export interface SelfImprovementOptions {
   traceDir?: string;
@@ -41,9 +41,9 @@ export async function runSelfImprovementLoop(
   const {
     traceDir = '.forge/traces',
     proposalsDir = '.forge/proposals',
-    heldInTasks: _heldInTasks,
-    heldOutTasks: _heldOutTasks,
-    harnessRunner: _harnessRunner,
+    heldInTasks,
+    heldOutTasks,
+    harnessRunner,
     autoApply = false,
     maxRounds = 3,
   } = options;
@@ -79,19 +79,13 @@ export async function runSelfImprovementLoop(
     }
 
     // Save proposals
-    await saveProposals(proposals, '.forge/proposals');
+    await saveProposals(proposals, proposalsDir);
 
-    // Step 3: Validate proposals
+    // Step 3: Validate proposals against the caller's held-in/held-out split
+    // using the caller's harness runner. An edit is accepted only when at
+    // least one split improves and neither regresses (regression-validator).
     console.error('Validating proposals...');
-    const validator = createDefaultValidator(
-      (_task: TaskSpec) => {
-        // Mock runner - in real implementation, this would run the actual harness
-        return Promise.resolve({ passed: true, cost: 0.001, latencyMs: 1000 });
-      },
-      // These would come from options in real usage
-      [],
-      []
-    );
+    const validator = createDefaultValidator(harnessRunner, heldInTasks, heldOutTasks);
 
     const evaluationResults: import('./regression-validator.js').EvaluationResult[] = [];
     let accepted = 0;

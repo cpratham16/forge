@@ -1,0 +1,64 @@
+{
+  "passAt1": 1,
+  "costPerTaskUsd": 0.0123,
+  "latencyP50Seconds": 0.0000628,
+  "taskCount": 1,
+  "oqs": {
+    "composite": 0.86,
+    "planQuality": 1,
+    "assignmentQuality": 0.7,
+    "coordination": 0.65,
+    "deliverableQuality": 0.95,
+    "efficiency": 1,
+    "driftScore": 0
+  },
+  "rigorPillars": {
+    "planningFidelity": 1,
+    "verificationCoverage": 1,
+    "recoveryEfficiency": 1,
+    "abstentionQuality": 1,
+    "atomicTransitionIntegrity": 1,
+    "composite": 1,
+    "projectedFromTraceEvents": 25
+  },
+  "costPerVerifiedTaskUsd": 0.0123,
+  "costRateSource": "explicit-rates",
+  "costAgents": [
+    {
+      "agent": "developer",
+      "model": "claude-sonnet",
+      "inputTokens": 1000,
+      "outputTokens": 500,
+      "costUsd": 0.0105
+    },
+    {
+      "agent": "reviewer",
+      "model": "claude-sonnet",
+      "inputTokens": 200,
+      "outputTokens": 80,
+      "costUsd": 0.0018
+    }
+  ],
+  "selfImprovement": {
+    "accepted": 3,
+    "rejected": 1,
+    "proposals": [
+      "improve-1:accepted",
+      "improve-2:accepted",
+      "improve-3:accepted",
+      "unstable:rejected"
+    ]
+  },
+  "capabilityIsolation": {
+    "controlDenied": true,
+    "benignPassed": true,
+    "floorPort": 4321
+  },
+  "terminalBench": {
+    "mode": "not_observed",
+    "modeNote": "harbor not found on PATH (Python CLI per PHASED_PLAN Phase 3 correction) — Terminal-Bench eval not run (not_observed).",
+    "passAt1": null
+  },
+  "mode": "phase-7-v1.0-gate",
+  "modeNote": "Synthetic standard evaluation through core scorers + adapters validator; RigorBench baseline established this phase."
+}

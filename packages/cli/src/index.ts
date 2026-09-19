@@ -12,6 +12,7 @@ import {
   ToolRegistry,
   ShellCommandVerifier,
   JsonlTraceSink,
+  createCapabilityIsolationDecorator,
   type VerifierCommand,
 } from '@forge/adapters';
 import type { ModelProvider, ModelRequest, ModelResponse, PolicyGrant, StopCondition, ToolCall } from '@forge/contracts';
@@ -99,7 +100,11 @@ export async function forgeRun(options: RunOptions): Promise<ForgeRunResult> {
 
   const registry = new ToolRegistry([new FilesystemTool(), new ShellTool(), new GitTool(), new SearchTool()]);
   const policy = new DefaultPolicyPort(options.grants !== undefined ? { grants: options.grants } : {});
-  const toolPort = new PolicyToolDecorator(registry, { policy, agent: 'main' });
+  const policyPort = new PolicyToolDecorator(registry, { policy, agent: 'main' });
+  // Capability isolation is the OUTERMOST decorator: it runs before the
+  // configurable policy engine, and the compiled-in control-plane floor is
+  // enforced regardless of FORGE_CONTROL_* env or forge.yaml (PRD §5).
+  const toolPort = createCapabilityIsolationDecorator(policyPort, { agent: 'main' });
 
   const verifier =
     options.verify !== undefined

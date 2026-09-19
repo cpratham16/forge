@@ -64,18 +64,16 @@ export class RegressionValidator {
     const heldInResult = await this.evaluateSplit(this.options.heldInTasks, proposal, 'held-in');
     const heldOutResult = await this.evaluateSplit(this.options.heldOutTasks, proposal, 'held-out');
 
-    const heldInRegressed = this.checkRegression(heldInResult, 'held-in');
-    const heldOutRegressed = this.checkRegression(heldOutResult, 'held-out');
-
     const heldInImproved = heldInResult.passRate > 0; // baseline is 0 for new proposals
     const heldOutImproved = heldOutResult.passRate > 0;
 
     // Accept if at least one improves AND neither regresses
-    const accepted = (heldInImproved || heldOutImproved) && !heldInRegressed && !heldOutRegressed;
+    const accepted =
+      (heldInImproved || heldOutImproved) && !heldInResult.regressed && !heldOutResult.regressed;
 
     let reason = '';
-    if (heldInRegressed) reason += `Held-in regressed: ${heldInResult.regressionReason}; `;
-    if (heldOutRegressed) reason += `Held-out regressed: ${heldOutResult.regressionReason}; `;
+    if (heldInResult.regressed) reason += `Held-in regressed: ${heldInResult.regressionReason}; `;
+    if (heldOutResult.regressed) reason += `Held-out regressed: ${heldOutResult.regressionReason}; `;
     if (!heldInImproved && !heldOutImproved) reason += 'No improvement in either split; ';
     if (accepted) reason = 'Accepted: improvement without regression';
 
