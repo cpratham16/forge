@@ -36,3 +36,6 @@ export type { TaskSpec, EvaluationResult, SplitResult, RegressionValidatorOption
 
 export { runSelfImprovementLoop } from './self-improvement/loop.js';
 export type { SelfImprovementOptions, LoopResult, RoundResult } from './self-improvement/loop.js';
+
+export { MODEL_CAPABILITIES } from './model/capabilities.js';
+export type { ModelCapability } from './model/capabilities.js';

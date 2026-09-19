@@ -43,7 +43,7 @@ const RUNNERS = {
   3: 'benchmarks/terminal-bench/run.mjs', // 10 Terminal-Bench tasks via Harbor (Python CLI)
   4: 'benchmarks/oqs/run.mjs',            // internal OQS (1 synthetic task)
   5: 'benchmarks/oqs/run.mjs',            // full internal OQS five-dimension evaluation
-  6: 'benchmarks/maf/run.mjs',            // specialization + framework overhead modules
+  6: 'benchmarks/maf/run.ts',             // specialization + framework overhead modules
 };
 
 const runnerPath = RUNNERS[phase];

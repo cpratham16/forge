@@ -13,9 +13,9 @@
 |---|---|
 | Phase | 6 — Adaptive Orchestration |
 | Branch | `phase/6-adaptive-orchestration` |
-| Status | in-progress |
+| Status | merged (PR #8) |
 | Open PR | — |
-| Last gate result | — |
+| Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
 | Blockers | — |
 
 ## Phase Ledger
@@ -28,7 +28,7 @@
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | merged | PASS | #3 | 2026-09-18 |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | merged | PASS | #5, #6 | 2026-09-19 |
-| 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | in-progress | — | — | — |
+| 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | merged | PASS | #8 | 2026-09-19 |
 
 ## Benchmark Baselines
 
@@ -42,7 +42,7 @@
 | 3 | `benchmarks/results/phase-3-candidate.json` (gitignored) | 1.0 | mock→mock | 10 Terminal-Bench tasks; Harbor fallback mode (no Harbor/credentials in env); gate PASS vs phase-2 baseline; real Harbor eval deferred until credentials exist |
 | 4 | `benchmarks/results/phase-4-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation on synthetic two-agent task; composite 0.713; gate PASS vs phase-3 baseline |
 | 5 | `benchmarks/results/phase-5-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation (Phase 4 baseline); self-improvement loop components; gate PASS vs phase-4 baseline |
-| 6 | `benchmarks/results/phase-6.json` | — | — | MAFBench specialization/overhead modules |
+| 6 | `benchmarks/results/phase-6-candidate.json` (gitignored) | 1.0 | mock→mock | MAFBench specialization/overhead modules; internal OQS composite 0.697; gate PASS vs phase-5 baseline |
 
 ## Releases
 
@@ -72,3 +72,5 @@
 - 2026-09-19 — Phase 5 merged via PR #5 (squash f5d8f64). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (internal OQS composite 0.713, label `phase:5`, compare vs phase-4 baseline). Verifier report was PASS. develop == f5d8f64.
 - 2026-09-19 — Phase 5 follow-up fix via PR #6 (squash 1a93127). Fixed missing @forge/adapters exports (SelfImprovementOptions, TaskSpec, runSelfImprovementLoop, etc.) and updated phase-4 benchmark baseline to match current OQS runner performance (latency 0.002s). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (latency 0.002s → 0.001s, no regression).
 - 2026-09-19 — started phase 6 on phase/6-adaptive-orchestration
+- 2026-09-19 — Phase 6 local gate PASS (lint, dep-check, typecheck, 146/148 tests): Complexity classifier (LOW/MEDIUM/HIGH), adaptive orchestration graph (LOW/MEDIUM/HIGH), workflow presets (disciplined-v1), model router (capability/cost/latency), MAFBench runner; benchmark internal OQS composite 0.697, gate PASS vs phase-5 baseline
+- 2026-09-19 — Phase 6 merged via PR #8 (squash). GitHub CI green on remote: `test` PASS (146/148 tests); `benchmark-gate` PASS (MAFBench specialization/overhead, internal OQS composite 0.697). Verifier report was PASS. develop == 482b0a8.
