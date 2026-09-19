@@ -47,7 +47,10 @@ jobs:
           ls -la packages/cli/dist/ 2>/dev/null || echo "cli/dist not found"
 
       - name: Build contracts
-        run: pnpm --filter @forge/contracts run build
+        run: |
+          echo "Building contracts package..."
+          pnpm --filter @forge/contracts run build
+          echo "Build completed. Exit code: $?"
         env:
           FORCE_COLOR: 1
 
@@ -55,7 +58,10 @@ jobs:
         run: |
           echo "Checking contracts dist:"
           ls -la packages/contracts/dist/
-          cat packages/contracts/dist/index.d.ts | grep -A 5 "ModelCapability"
+          echo "=== ModelCapability in dist ==="
+          cat packages/contracts/dist/index.d.ts | grep -A 5 "ModelCapability" || echo "ModelCapability NOT FOUND in dist"
+          echo "=== Full dist/index.d.ts ==="
+          cat packages/contracts/dist/index.d.ts
 
       - name: Typecheck
         run: pnpm typecheck
