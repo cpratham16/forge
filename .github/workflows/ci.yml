@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-key: forge-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
 
       - name: Install
         run: pnpm install --frozen-lockfile || (pnpm install --no-frozen-lockfile && git diff pnpm-lock.yaml | head -100)
