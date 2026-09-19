@@ -58,8 +58,16 @@ jobs:
           echo "=== Building contracts package ==="
           pnpm --filter @forge/contracts run build
           echo "Exit code: $?"
+          echo "=== Checking dist folder ==="
           ls -la packages/contracts/dist/ || echo "DIST NOT FOUND"
-          cat packages/contracts/dist/index.d.ts 2>/dev/null | grep -A 5 "ModelCapability" || echo "ModelCapability NOT FOUND"
+          if [ -f packages/contracts/dist/index.d.ts ]; then
+            echo "index.d.ts exists"
+            grep -n "ModelCapability" packages/contracts/dist/index.d.ts | head -5 || echo "ModelCapability NOT FOUND"
+          else
+            echo "index.d.ts NOT FOUND"
+          fi
+        env:
+          FORCE_COLOR: 1
 
       - name: Build core
         run: |
