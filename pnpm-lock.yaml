@@ -64,6 +64,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@forge/adapters':
+        specifier: workspace:*
+        version: link:../adapters
       '@forge/contracts':
         specifier: workspace:*
         version: link:../contracts
