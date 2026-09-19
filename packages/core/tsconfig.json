@@ -2,10 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "composite": false,
+    "paths": {
+      "@forge/contracts": ["../contracts/dist/index.js"],
+      "@forge/adapters": ["../adapters/dist/index.js"]
+    }
   },
-  "include": ["src/**/*"],
-  "references": [
-    { "path": "../contracts" }
-  ]
+  "include": ["src/**/*"]
 }
