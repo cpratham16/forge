@@ -1,7 +1,7 @@
 {
   "passAt1": 1,
   "costPerTaskUsd": 0.0123,
-  "latencyP50Seconds": 0.0000628,
+  "latencyP50Seconds": 0.0000348,
   "taskCount": 1,
   "oqs": {
     "composite": 0.86,
