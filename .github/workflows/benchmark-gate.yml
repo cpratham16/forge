@@ -27,7 +27,7 @@ jobs:
         run: |
           LABEL=$(echo '${{ toJson(github.event.pull_request.labels.*.name) }}' | grep -oE 'phase:[0-6]' | head -n1 | cut -d: -f2)
           if [ -z "$LABEL" ]; then
-            echo "::error::No phase:N label found on this PR (N=2..6). Add one before this check can run." 
+            echo "::error::No phase:N label found on this PR (N=2..6). Add one before this check can run."
             exit 1
           fi
           echo "n=$LABEL" >> "$GITHUB_OUTPUT"
@@ -40,6 +40,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-key: forge-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
 
       - name: Setup Python (Harbor is a Python CLI, not an npm package)
         uses: actions/setup-python@v5
