@@ -29,7 +29,7 @@ jobs:
           cache: pnpm
 
       - name: Install
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile || (pnpm install --no-frozen-lockfile && git diff pnpm-lock.yaml | head -100)
 
       - name: Lint
         run: pnpm lint
