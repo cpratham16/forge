@@ -52,8 +52,22 @@ jobs:
       - name: Install workspace deps
         run: pnpm install --frozen-lockfile
 
-      - name: Build all packages
-        run: pnpm build
+      - name: Build contracts
+        run: |
+          echo "=== Building contracts package ==="
+          pnpm --filter @forge/contracts run build
+          echo "Exit code: $?"
+          ls -la packages/contracts/dist/ || echo "DIST NOT FOUND"
+          cat packages/contracts/dist/index.d.ts 2>/dev/null | grep -A 5 "ModelCapability" || echo "ModelCapability NOT FOUND"
+
+      - name: Build core
+        run: |
+          echo "Building core..."
+          pnpm --filter @forge/core run build
+          echo "Exit code: $?"
+
+      - name: Build remaining
+        run: pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build
 
       - name: Run this phase's benchmark
         run: pnpm bench:phase -- --phase ${{ steps.phase.outputs.n }} --out benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json
