@@ -1,4 +1,4 @@
-# ADR-003: No False Parity in Adapter Conformance
+# ADR-012: No False Parity in Adapter Conformance
 
 - **Status:** accepted
 - **Date:** 2026-09-18

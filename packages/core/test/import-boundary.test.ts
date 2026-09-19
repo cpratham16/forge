@@ -29,12 +29,12 @@ describe('import boundary', () => {
     }
   });
 
-  it('core package only imports from @forge/contracts', () => {
+  it('core package only imports from @runforge/contracts', () => {
     const coreDir = join(__dirname, '..', 'src');
     const tsFiles = collectTsFiles(coreDir);
 
     const forbiddenImports = [
-      '@forge/adapters',
+      '@runforge/adapters',
       '@anthropic-ai/sdk',
       'node:fs',
       'node:http',

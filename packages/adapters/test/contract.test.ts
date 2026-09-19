@@ -1,9 +1,9 @@
-// @forge/adapters package-level tests
+// @runforge/adapters package-level tests
 // Detailed contract tests are in test/model/contract.test.ts
 import { describe, it, expect } from 'vitest';
 import { MockModelProvider, ClaudeModelProvider } from '../src/index.js';
 
-describe('@forge/adapters exports', () => {
+describe('@runforge/adapters exports', () => {
   it('exports MockModelProvider', () => {
     expect(MockModelProvider).toBeDefined();
     expect(typeof MockModelProvider).toBe('function');

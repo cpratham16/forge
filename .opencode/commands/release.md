@@ -36,6 +36,6 @@ autonomous** — see @AGENTS.md §8. Do the following, and stop where indicated:
    user one more time that this specific PR should be merged now — merge it.
 6. Update STATE.md's Releases table with the version, PR link, and date.
 7. If this release is v0.1.0, remind the user `docs/PRD.md` M12 also calls for
-   publishing `@forge/cli` to npm — that's a separate, explicit `npm publish`
+   publishing `@runforge/cli` to npm — that's a separate, explicit `npm publish`
    step (denied by default in `opencode.json`, so it'll prompt) and is not
    implied by the git merge alone.

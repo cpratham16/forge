@@ -1,12 +1,12 @@
 # Default owner
-*                           @OWNER
+*                           @cpratham16
 
 # The architecture guardrails. Changes here need a deliberate look —
 # weakening them silently is the failure mode AGENTS.md §10 exists to prevent.
-/.dependency-cruiser.cjs    @OWNER
-/AGENTS.md                  @OWNER
-/opencode.json              @OWNER
-/.opencode/                 @OWNER
-/.github/workflows/         @OWNER
-/scripts/                   @OWNER
-/docs/adr/                  @OWNER
+/.dependency-cruiser.cjs    @cpratham16
+/AGENTS.md                  @cpratham16
+/opencode.json              @cpratham16
+/.opencode/                 @cpratham16
+/.github/workflows/         @cpratham16
+/scripts/                   @cpratham16
+/docs/adr/                  @cpratham16

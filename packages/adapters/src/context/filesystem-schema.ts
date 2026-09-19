@@ -14,7 +14,7 @@ import type {
   RuleContext,
   SymbolContext,
   AdapterConformance,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 const execFileAsync = promisify(execFile);
 

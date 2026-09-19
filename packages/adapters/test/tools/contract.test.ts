@@ -7,7 +7,7 @@ import { promises as fs } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
-import type { ToolCall, ToolContext, ToolPort } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolPort } from '@runforge/contracts';
 import { ToolRegistry } from '../../src/tools/registry.js';
 import { FilesystemTool } from '../../src/tools/filesystem.js';
 import { ShellTool } from '../../src/tools/shell.js';

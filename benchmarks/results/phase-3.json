@@ -1,0 +1,119 @@
+{
+  "phase": 3,
+  "mode": "harbor-unavailable-fallback",
+  "modeNote": "harbor not found on PATH (Python CLI per PHASED_PLAN correction) — fell back to mock. Not a Harbor run.",
+  "timestamp": "2026-09-19T18:18:09.428Z",
+  "passAt1": 1,
+  "costPerTaskUsd": 0.0010500000000000002,
+  "latencyP50Seconds": 0.002,
+  "taskCount": 10,
+  "tasks_total": 10,
+  "tasks_passed": 10,
+  "tasks_failed": 0,
+  "pass_at_1": 1,
+  "total_input_tokens": 100,
+  "total_output_tokens": 50,
+  "total_time_ms": 31,
+  "results": [
+    {
+      "task_id": "tb-001",
+      "task": "List every file in src/ recursively, sorted by name.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pncl1-stzt9b",
+      "latency_ms": 14
+    },
+    {
+      "task_id": "tb-002",
+      "task": "Create file greet.js exporting a function greet(name) that returns a greeting.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pnclf-xylhx9",
+      "latency_ms": 3
+    },
+    {
+      "task_id": "tb-003",
+      "task": "Edit greet.js so the returned greeting is uppercase.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pncli-9dgbz2",
+      "latency_ms": 1
+    },
+    {
+      "task_id": "tb-004",
+      "task": "Create file multiply.js exporting a function multiply(a, b) that returns a*b.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pnclj-w8nl0j",
+      "latency_ms": 2
+    },
+    {
+      "task_id": "tb-005",
+      "task": "Add a test file test.greet.js that requires greet.js and exits 0 when greet(\"a\") is uppercase.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pncll-udcz89",
+      "latency_ms": 2
+    },
+    {
+      "task_id": "tb-006",
+      "task": "Run \"node -p 1+1\" and report the exact output.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pncln-zjbdqu",
+      "latency_ms": 1
+    },
+    {
+      "task_id": "tb-007",
+      "task": "Search the repo for the string hexagon and report the file and line.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pnclo-thr4q8",
+      "latency_ms": 2
+    },
+    {
+      "task_id": "tb-008",
+      "task": "Delete any file named todo.md if it exists.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pnclq-55ynbd",
+      "latency_ms": 1
+    },
+    {
+      "task_id": "tb-009",
+      "task": "Write a function isEven(n) to file even.js and a test file test.even.js that exits 0 when isEven(4) is true.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pnclr-0ugsty",
+      "latency_ms": 2
+    },
+    {
+      "task_id": "tb-010",
+      "task": "Show the last 3 git commits oneline format.",
+      "success": true,
+      "turns": 1,
+      "input_tokens": 10,
+      "output_tokens": 5,
+      "run_id": "r-mu8pnclt-4jp7tz",
+      "latency_ms": 3
+    }
+  ]
+}

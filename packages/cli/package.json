@@ -1,6 +1,7 @@
 {
-  "name": "@forge/cli",
+  "name": "@runforge/cli",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,9 +18,9 @@
     "dist"
   ],
   "dependencies": {
-    "@forge/adapters": "workspace:*",
-    "@forge/contracts": "workspace:*",
-    "@forge/core": "workspace:*"
+    "@runforge/adapters": "workspace:*",
+    "@runforge/contracts": "workspace:*",
+    "@runforge/core": "workspace:*"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

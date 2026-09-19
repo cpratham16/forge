@@ -2,7 +2,7 @@
 // at the model-API boundary without touching the orchestrator, and never breaks
 // the wrapped model call.
 import { describe, it, expect, beforeEach } from 'vitest';
-import type { ModelProvider, ModelRequest, ModelResponse, TraceEvent, TracePort } from '@forge/contracts';
+import type { ModelProvider, ModelRequest, ModelResponse, TraceEvent, TracePort } from '@runforge/contracts';
 import { TraceModelProviderDecorator } from '../src/trace/trace-model-decorator.js';
 
 class MemoryTrace implements TracePort {

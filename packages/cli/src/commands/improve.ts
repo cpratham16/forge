@@ -1,6 +1,6 @@
 // `forge improve` — run the self-improvement loop.
-import type { SelfImprovementOptions } from '@forge/adapters';
-import type { TaskSpec } from '@forge/adapters';
+import type { SelfImprovementOptions } from '@runforge/adapters';
+import type { TaskSpec } from '@runforge/adapters';
 
 export async function improveCommand(args: string[]): Promise<string> {
   const traceDirIdx = args.indexOf('--dir');
@@ -28,7 +28,7 @@ export async function improveCommand(args: string[]): Promise<string> {
     return { passed: true, cost: 0.001, latencyMs: 1000 };
   };
 
-  const { runSelfImprovementLoop } = await import('@forge/adapters');
+  const { runSelfImprovementLoop } = await import('@runforge/adapters');
 
   const options: SelfImprovementOptions = {
     ...(traceDir !== undefined ? { traceDir } : {}),

@@ -5,7 +5,7 @@
 //   - deny-by-default for delete and network actions
 //   - PolicyGrant (A9): scoped, time-boxed approvals that permit a targeted
 //     action (e.g. one delete path) without weakening the runtime floor.
-import type { ActionRequest, PolicyDecision, PolicyGrant, PolicyPort } from '@forge/contracts';
+import type { ActionRequest, PolicyDecision, PolicyGrant, PolicyPort } from '@runforge/contracts';
 import { isProtectedFile, matchResource } from './util.js';
 
 export interface DefaultPolicyOptions {

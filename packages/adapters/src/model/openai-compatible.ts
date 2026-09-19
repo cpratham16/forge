@@ -5,7 +5,7 @@ import type {
   ModelResponse,
   ToolCall,
   ToolDefinition,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 export interface OpenAICompatibleOptions {
   baseUrl: string;

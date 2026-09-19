@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// @forge/cli — composition root and CLI entry point.
+// @runforge/cli — composition root and CLI entry point.
 // This is where adapters get wired into core. Concrete adapter choices belong here.
-import { runSingleAgentLoop, TraceModelProviderDecorator, DefaultPolicyPort, PolicyToolDecorator } from '@forge/core';
+import { runSingleAgentLoop, TraceModelProviderDecorator, DefaultPolicyPort, PolicyToolDecorator } from '@runforge/core';
 import {
   ClaudeModelProvider,
   MockModelProvider,
@@ -14,8 +14,8 @@ import {
   JsonlTraceSink,
   createCapabilityIsolationDecorator,
   type VerifierCommand,
-} from '@forge/adapters';
-import type { ModelProvider, ModelRequest, ModelResponse, PolicyGrant, StopCondition, ToolCall } from '@forge/contracts';
+} from '@runforge/adapters';
+import type { ModelProvider, ModelRequest, ModelResponse, PolicyGrant, StopCondition, ToolCall } from '@runforge/contracts';
 import { traceList, traceShow } from './commands/trace.js';
 import { conformanceCommand } from './commands/conformance.js';
 

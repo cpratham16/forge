@@ -1,5 +1,5 @@
 // Single-agent orchestrator loop.
-// Depends ONLY on @forge/contracts (injected ports). Never imports adapters or SDKs.
+// Depends ONLY on @runforge/contracts (injected ports). Never imports adapters or SDKs.
 //
 // Phase 3 additions (all injected, none imported):
 //   - toolPort:       tool_calls are executed and results fed back as messages
@@ -20,7 +20,7 @@ import type {
   ToolResult,
   VerificationPort,
   VerificationResult,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { describeVerificationStatus, runVerificationGate } from '../verification/gate-runner.js';
 import { checkStopConditions, type StopRunState } from './stop-conditions.js';
 
