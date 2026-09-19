@@ -13,10 +13,10 @@
 |---|---|
 | Phase | 7 — Capability Isolation + v1.0 Gate Completion |
 | Branch | `phase/7-capability-isolation-v1` |
-| Status | in-progress |
+| Status | merged |
 | Open PR | — |
-| Last gate result | — |
-| Blockers | — |
+| Last gate result | PASS (lint, dep-check, typecheck, 180/182 tests; bench OQS 0.860, rigor 1.000, cost $0.0123, self-improvement 3/4; Terminal-Bench not_observed) |
+| Blockers | Terminal-Bench real eval deferred (Harbor binary present but FORGE_HARBOR_CONFIG unset) — not a merge blocker; honest not_observed per AGENTS.md §11 |
 
 ## Phase Ledger
 
@@ -29,7 +29,7 @@
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | merged | PASS | #5, #6 | 2026-09-19 |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | merged | PASS | #8 | 2026-09-19 |
-| 7 — Capability Isolation + v1.0 Gate Completion | `phase/7-capability-isolation-v1` | in-progress | — | — | — |
+| 7 — Capability Isolation + v1.0 Gate Completion | `phase/7-capability-isolation-v1` | merged | PASS | #9 | 2026-09-19 |
 
 ## Benchmark Baselines
 
@@ -44,6 +44,7 @@
 | 4 | `benchmarks/results/phase-4-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation on synthetic two-agent task; composite 0.713; gate PASS vs phase-3 baseline |
 | 5 | `benchmarks/results/phase-5-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation (Phase 4 baseline); self-improvement loop components; gate PASS vs phase-4 baseline |
 | 6 | `benchmarks/results/phase-6.json` | 1.0 | mock→mock | MAFBench specialization/overhead modules; internal OQS composite 0.697; gate PASS vs phase-5 baseline |
+| 7 | `benchmarks/results/phase-7.json` | 1.0 | $0.0123 | v1.0 gate closure: internal OQS composite 0.860 (≥0.7), RigorBench baseline 1.000, self-improvement 3/4 accepted (≥3), capability isolation deny smoke (controlDenied/benignPassed/floorPort 4321), Terminal-Bench not_observed; gate PASS vs phase-6 baseline |
 
 ## Releases
 
@@ -79,3 +80,4 @@
 - 2026-09-19 — Phase 7 objective review approved: full capability isolation + v1.0 gate scope agreed (SECLOUD decision: CONTROL_PLANE_FLOOR in core, union-over-floor non-overridability, outermost isolation decorator, no forged control server). Corrections logged: stale "Phases 0–6 only" claims (STATE.md, HARNESS_INSPIRATIONS.md).
 - 2026-09-19 — Phase 7 local gate progress: capability isolation in core (floor + resolve + evaluateCapabilityIsolation + CapabilityIsolationToolDecorator: fail-closed exception/timeout/malformed, before-policy ordering, non-overridable empty-surface), adapter env-sourced surface (FORGE_CONTROL_HOSTS/PORT/PATHS), rigor-pillar scorer (5 pillars), cost attribution, RegressionValidator acceptance-bug fixed (checkRegression object truthiness → used .regressed), self-improvement loop wiring fixed (destructured options, proposalsDir); 180/180 tests PASS after clearing stale compiled .js out of packages/*/src (an earlier tsc had emitted into src/, shadowing TS sources at test time). bench:phase 7 runner green (OQS 0.860 ≥ 0.7 gate, RigorBench baseline 1.000, cost $0.0123 explicit-rates, self-improvement 3/4 accepted, isolation deny smoke, Terminal-Bench honest not_observed); benchmark-gate compare vs phase-6.json PASSES (p50 0.0000342s measured at ns precision — Date.now() was inflating it).
 - 2026-09-19 — Phase 7 local gate re-run (nothing changed since prior line except docs/CLI wiring + tsconfig fix): adapters/tsconfig.json path override to sibling dists + ../core reference (rootDir/project-file-list errors when value-importing @forge/core from source), loop.ts missing TaskSpec import; CLI composition root now wraps toolPort in createCapabilityIsolationDecorator (outermost, per PRD §5). Full gate re-run GREEN: lint PASS, dep-check PASS (118 modules, 364 deps, 0 violations), typecheck PASS, test PASS (26 files / 180 passed / 2 skipped), bench:phase 7 PASS (OQS 0.860, rigor 1.000, cost $0.0123, self-improvement 3/4, terminalBench not_observed, isolation smoke deny), compare vs phase-6 PASSES (pass@1 1→1, p50 0.001→0.0000453s, cost 0 baseline skipped). Docs updated: STATE.md (Phases 2–7), PROJECT_OVERVIEW.md §2 control-surface note, HARNESS_INSPIRATIONS.md line 26, benchmark-gate.yml [0-7], bench-phase.mjs guard >7.
+- 2026-09-19 — Phase 7 merged via PR #9 (squash 7fd0946). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (label `phase:7`, OQS composite 0.860 ≥ 0.7 gate, rigor 1.000, cost $0.0123, self-improvement 3/4, Terminal-Bench not_observed — harbor binary present but FORGE_HARBOR_CONFIG unset; compare vs phase-6 baseline no regression). Verifier report was PASS. develop == 7fd0946. All 7 phases of the roadmap merged; the v1.0.0 release point (M14+, PRD §11) has been reached — `/release` (develop→main) still requires explicit human confirmation per AGENTS.md §8.
