@@ -1,6 +1,6 @@
 // Tool family contract used at the composition root. A family is one
 // adapter that implements ToolPort and declares the concrete tools it serves.
-import type { ToolDefinition, ToolPort } from '@forge/contracts';
+import type { ToolDefinition, ToolPort } from '@runforge/contracts';
 
 export interface ToolFamily extends ToolPort {
   /** Family name, e.g. 'filesystem'. */

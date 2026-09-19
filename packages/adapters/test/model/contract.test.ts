@@ -2,7 +2,7 @@
 // These tests define the behavioral contract that ANY ModelProvider adapter must satisfy.
 // Run first against the mock adapter, then against the real Claude adapter.
 import { describe, it, expect } from 'vitest';
-import type { ModelProvider, ModelRequest } from '@forge/contracts';
+import type { ModelProvider, ModelRequest } from '@runforge/contracts';
 import { MockModelProvider } from '../../src/model/mock.js';
 
 /**

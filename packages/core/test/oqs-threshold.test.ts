@@ -5,7 +5,7 @@
 // way the phase-7 benchmark gate does.
 import { describe, it, expect } from 'vitest';
 import { calculateOQS } from '../src/quality/oqs-scorer.js';
-import type { Task, TraceEvent, AgentMessage, ReviewResult } from '@forge/contracts';
+import type { Task, TraceEvent, AgentMessage, ReviewResult } from '@runforge/contracts';
 
 function ev(type: TraceEvent['type'], agent: string, payload: Record<string, unknown> = {}): TraceEvent {
   return {

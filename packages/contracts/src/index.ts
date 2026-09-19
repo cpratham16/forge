@@ -1,4 +1,4 @@
-// @forge/contracts — zero dependencies, pure types only.
+// @runforge/contracts — zero dependencies, pure types only.
 // NO imports from other .ts files — this file is the single source of truth.
 // All types are defined inline here so that dependency-cruiser sees zero imports.
 

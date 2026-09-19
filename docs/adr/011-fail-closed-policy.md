@@ -1,4 +1,4 @@
-# ADR-002: Fail-Closed Policy Enforcement
+# ADR-011: Fail-Closed Policy Enforcement
 
 - **Status:** accepted
 - **Date:** 2026-09-18

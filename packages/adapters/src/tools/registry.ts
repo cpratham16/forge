@@ -1,7 +1,7 @@
 // ToolRegistry — composition-time dispatcher. Maps concrete tool names (as
 // the model addresses them) to the family that implements them, and exposes
 // the flattened ToolDefinition list for the model request.
-import type { ToolCall, ToolContext, ToolDefinition, ToolPort, ToolResult } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolPort, ToolResult } from '@runforge/contracts';
 import type { ToolFamily } from './types.js';
 
 export class ToolRegistry implements ToolPort {

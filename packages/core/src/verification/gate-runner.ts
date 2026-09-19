@@ -4,7 +4,7 @@
 //
 // A3: 'not_observed' (no evidence was produced) is neither a pass nor
 // silently rendered as a fail — it surfaces as its own rejection reason.
-import type { VerificationPort, VerificationResult } from '@forge/contracts';
+import type { VerificationPort, VerificationResult } from '@runforge/contracts';
 
 export interface VerificationGateResult {
   approved: boolean;

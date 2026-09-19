@@ -15,7 +15,11 @@ Current state:
 2. `gh pr checks <number>`. Read the actual output — every required check
    (`test`, and `benchmark-gate` if this phase defines a benchmark) must show
    `success`. Anything else (`pending`, `failure`, `skipped` on a required
-   check) means **do not merge**.
+   check) means **do not merge**. Note: the `test` job runs
+   `pnpm check-claims`, which fails the build if README.md's status line has
+   drifted from the current phase in `.opencode/STATE.md`. A phase can't merge
+   if the README's status line wasn't updated to match — that is part of the
+   gate (HARNESS_INSPIRATIONS.md A13), not a cosmetic nicety.
    - If checks are still pending: report status and stop. Don't loop-poll
      forever in one turn — tell the user to re-run `/phase-merge` shortly, or
      watch with `gh pr checks <number> --watch` if asked to wait.

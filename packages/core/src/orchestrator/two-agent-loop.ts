@@ -5,7 +5,7 @@ import type {
   ReviewFinding,
   ReviewResult,
   StopCondition,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { runSingleAgentLoop, type OrchestratorConfig, type OrchestratorResult } from './single-agent-loop.js';
 import { checkStopConditions, type StopRunState } from './stop-conditions.js';
 

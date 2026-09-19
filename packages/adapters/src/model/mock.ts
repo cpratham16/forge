@@ -6,7 +6,7 @@ import type {
   ModelResponse,
   ToolCall,
   AdapterConformance,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 export interface MockModelProviderOptions {
   /** Fixed response content for simple requests */

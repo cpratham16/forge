@@ -323,9 +323,9 @@ export interface AdapterConformance {
 The harness control interface lives on loopback port `4321` by default
 (`DEFAULT_CONTROL_PORT` in `packages/core/src/policy/capability-isolation.ts`).
 The compiled-in floor (`CONTROL_PLANE_FLOOR`) protects `localhost`, `127.0.0.1`,
-`[::1]` on that port plus the `.forge/**` control path. `@forge/adapters` sources
+`[::1]` on that port plus the `.forge/**` control path. `@runforge/adapters` sources
 a wider surface from `FORGE_CONTROL_HOSTS` / `FORGE_CONTROL_PORT` /
-`FORGE_CONTROL_PATHS`, and `@forge/core` **unions** any configured surface over
+`FORGE_CONTROL_PATHS`, and `@runforge/core` **unions** any configured surface over
 the floor — configuration (including `forge.yaml`) can only add protected
 targets, never remove the floor. The isolation boundary is enforced by
 `CapabilityIsolationToolDecorator` as the **outermost** decorator, evaluated
@@ -511,7 +511,7 @@ trace:
 ## 6. CLI Experience
 
 ```bash
-npm install -g @forge/cli
+npm install -g @runforge/cli
 
 cd my-project
 forge
@@ -554,7 +554,7 @@ Output:
 ## 7. Programmatic SDK
 
 ```typescript
-import { Forge } from '@forge/core';
+import { Forge } from '@runforge/core';
 
 const forge = new Forge({
   project: './my-project',
@@ -577,7 +577,7 @@ console.log(result.orchestration); // { planQuality: 0.82, coordination: 0.74, .
 ## 8. First Milestone (v0.1) Checklist
 
 - [ ] M0: Repo scaffold + dependency-cruiser in CI
-- [ ] M1: `@forge/contracts` — all ports + domain types, zero deps
+- [ ] M1: `@runforge/contracts` — all ports + domain types, zero deps
 - [ ] M2: `ModelProvider` port + contract tests + mock adapter
 - [ ] M3: Claude adapter passes contract tests
 - [ ] M4: Single-agent loop + `forge run "task"` works
@@ -588,7 +588,7 @@ console.log(result.orchestration); // { planQuality: 0.82, coordination: 0.74, .
 - [ ] M9: `PolicyPort` decorator (zero orchestrator changes)
 - [ ] M10: Second agent (reviewer) + handoff
 - [ ] M11: `SubAgentRouter` heuristic
-- [ ] M12: Publish `@forge/cli` to npm
+- [ ] M12: Publish `@runforge/cli` to npm
 - [ ] M13+: Adaptive orchestration + self-improvement loop
 
 ---
@@ -598,8 +598,8 @@ console.log(result.orchestration); // { planQuality: 0.82, coordination: 0.74, .
 | ADR | Decision |
 |---|---|
 | ADR-001 | Ports & adapters over monolithic architecture |
-| ADR-002 | Fail-closed policy enforcement and non-overridable runtime floor |
-| ADR-003 | No false parity in adapter conformance declarations |
+| ADR-002 | Trace-first architecture |
+| ADR-003 | Evidence-based completion |
 | ADR-004 | Capability isolation: control plane ≠ data plane |
 | ADR-005 | OpenTelemetry as trace format, not proprietary |
 | ADR-006 | Harbor as benchmark runner, not custom (invoked as an external Python CLI via subprocess — not an npm dependency) |
@@ -607,3 +607,5 @@ console.log(result.orchestration); // { planQuality: 0.82, coordination: 0.74, .
 | ADR-008 | npm as distribution, not marketplace |
 | ADR-009 | Orchestration quality (internal OQS scorer) as first-class metric |
 | ADR-010 | Complexity classifier: heuristic first, LLM later |
+| ADR-011 | Fail-closed policy enforcement and non-overridable runtime floor |
+| ADR-012 | No false parity in adapter conformance declarations |

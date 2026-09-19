@@ -2,7 +2,7 @@
 // Runs the same contract test suite as the mock adapter.
 import { describe } from 'vitest';
 import { modelProviderContractTests } from './contract.test.js';
-import type { ModelProvider } from '@forge/contracts';
+import type { ModelProvider } from '@runforge/contracts';
 import { ClaudeModelProvider } from '../../src/model/claude.js';
 
 describe('Claude ModelProvider', () => {

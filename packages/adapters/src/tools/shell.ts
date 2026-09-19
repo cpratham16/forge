@@ -4,7 +4,7 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import { join } from 'node:path';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@runforge/contracts';
 import type { ToolFamily } from './types.js';
 
 const execAsync = promisify(exec);

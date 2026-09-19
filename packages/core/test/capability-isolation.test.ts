@@ -5,7 +5,7 @@
 // - non-overridable: a would-be config surface that empties the surface still
 //   cannot remove the compiled-in floor
 import { describe, it, expect, vi } from 'vitest';
-import type { ActionRequest, PolicyDecision, ToolCall, ToolContext, ToolPort, ToolResult } from '@forge/contracts';
+import type { ActionRequest, PolicyDecision, ToolCall, ToolContext, ToolPort, ToolResult } from '@runforge/contracts';
 import { CapabilityIsolationToolDecorator, evaluateCapabilityIsolation, resolveControlPlaneSurface } from '../src/policy/capability-isolation.js';
 import { PolicyToolDecorator, type PolicyToolDecoratorOptions } from '../src/policy/policy-tool-decorator.js';
 

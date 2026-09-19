@@ -5,7 +5,7 @@
 // status 'not_observed' — never 'verified'.
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
-import type { Evidence, VerificationPort, VerificationResult, AdapterConformance } from '@forge/contracts';
+import type { Evidence, VerificationPort, VerificationResult, AdapterConformance } from '@runforge/contracts';
 
 const execAsync = promisify(exec);
 const MAX_BUFFER = 10 * 1024 * 1024;

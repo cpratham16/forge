@@ -1,8 +1,8 @@
 // `forge trace show <run-id>` and `forge trace list` — human-readable trace
 // summaries from JSONL sink files. No OTLP wiring for now (ADR-005 keeps that
 // option for Phase 6); JSONL is sufficient for local inspection.
-import { DEFAULT_TRACE_DIR, listRunIds, loadRun, type RunSummary } from '@forge/adapters';
-import type { TraceEvent } from '@forge/contracts';
+import { DEFAULT_TRACE_DIR, listRunIds, loadRun, type RunSummary } from '@runforge/adapters';
+import type { TraceEvent } from '@runforge/contracts';
 
 function padTwo(n: number): string {
   return n < 10 ? `0${n}` : `${n}`;

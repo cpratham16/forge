@@ -2,18 +2,18 @@
 // (PHASED_PLAN Phase 7; packages/adapters/AGENTS.md: "the agent's execution
 // environment must not have network access to the harness control plane").
 //
-// The actual boundary decision logic lives in @forge/core (the non-overridable
+// The actual boundary decision logic lives in @runforge/core (the non-overridable
 // runtime floor). This module is where the concrete surface is sourced from
 // the host environment so the boundary can be mounted guard-realistic values:
 //   - FORGE_CONTROL_HOSTS  — comma-separated hostnames/addresses to protect
 //   - FORGE_CONTROL_PORT   — the control interface port (default 4321)
 //   - FORGE_CONTROL_PATHS  — comma-separated control-plane path prefixes
 //
-// Whatever env says, @forge/core unions its compiled-in floor over top, so a
+// Whatever env says, @runforge/core unions its compiled-in floor over top, so a
 // misconfiguration or forge.yaml cannot remove the floor — it can only add
 // more protected targets.
-import { CapabilityIsolationToolDecorator, CONTROL_PLANE_FLOOR } from '@forge/core';
-import type { ControlPlaneSurface, ToolPort } from '@forge/contracts';
+import { CapabilityIsolationToolDecorator, CONTROL_PLANE_FLOOR } from '@runforge/core';
+import type { ControlPlaneSurface, ToolPort } from '@runforge/contracts';
 
 export const FORGE_CONTROL_HOSTS_ENV = 'FORGE_CONTROL_HOSTS';
 export const FORGE_CONTROL_PORT_ENV = 'FORGE_CONTROL_PORT';

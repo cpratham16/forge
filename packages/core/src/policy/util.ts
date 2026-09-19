@@ -1,6 +1,6 @@
 // Pure matching helpers shared by RUNTIME_FLOOR and the default policy engine.
 // No imports beyond contracts — these are string/pattern logic only.
-import type { ActionRequest } from '@forge/contracts';
+import type { ActionRequest } from '@runforge/contracts';
 
 export const SECRET_PATTERNS: readonly RegExp[] = [
   /AKIA[0-9A-Z]{16}/,

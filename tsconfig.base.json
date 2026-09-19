@@ -19,10 +19,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@forge/contracts": ["./packages/contracts/src/index.ts"],
-      "@forge/core": ["./packages/core/src/index.ts"],
-      "@forge/adapters": ["./packages/adapters/src/index.ts"],
-      "@forge/cli": ["./packages/cli/src/index.ts"]
+      "@runforge/contracts": ["./packages/contracts/src/index.ts"],
+      "@runforge/core": ["./packages/core/src/index.ts"],
+      "@runforge/adapters": ["./packages/adapters/src/index.ts"],
+      "@runforge/cli": ["./packages/cli/src/index.ts"]
     }
   }
 }

@@ -4,7 +4,7 @@
 // corrupt/partial lines (skipped, not thrown).
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
-import type { TraceEvent, TracePort, AdapterConformance } from '@forge/contracts';
+import type { TraceEvent, TracePort, AdapterConformance } from '@runforge/contracts';
 
 const DEFAULT_TRACE_DIR = '.forge/traces';
 

@@ -11,7 +11,7 @@ import type {
   ToolResult,
   VerificationPort,
   VerificationResult,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { runSingleAgentLoop } from '../src/orchestrator/single-agent-loop.js';
 import { TraceModelProviderDecorator } from '../src/trace/trace-model-decorator.js';
 import { describeVerificationStatus, runVerificationGate } from '../src/verification/gate-runner.js';

@@ -2,7 +2,7 @@
 // (no external binary, works everywhere). Skips binary noise directories.
 import { promises as fs } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@runforge/contracts';
 import type { ToolFamily } from './types.js';
 
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'coverage', '.forge', '.next', 'out']);
