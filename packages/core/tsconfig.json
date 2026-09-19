@@ -3,11 +3,14 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "composite": false,
+    "composite": true,
     "paths": {
       "@forge/contracts": ["../contracts/dist/index.js"],
       "@forge/adapters": ["../adapters/dist/index.js"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../contracts" }
+  ]
 }
