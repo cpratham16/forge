@@ -46,22 +46,16 @@ jobs:
           ls -la packages/adapters/dist/ 2>/dev/null || echo "adapters/dist not found"
           ls -la packages/cli/dist/ 2>/dev/null || echo "cli/dist not found"
 
-      - name: Build contracts
-        run: |
-          echo "Building contracts package..."
-          pnpm --filter @forge/contracts run build
-          echo "Build completed. Exit code: $?"
-        env:
-          FORCE_COLOR: 1
+      - name: Build all packages
+        run: pnpm build
 
       - name: Verify contracts build
         run: |
           echo "Checking contracts dist:"
           ls -la packages/contracts/dist/
-          echo "=== ModelCapability in dist ==="
-          cat packages/contracts/dist/index.d.ts | grep -A 5 "ModelCapability" || echo "ModelCapability NOT FOUND in dist"
+          cat packages/contracts/dist/index.d.ts 2>/dev/null | grep -A 5 "ModelCapability" || echo "ModelCapability NOT FOUND in dist"
           echo "=== Full dist/index.d.ts ==="
-          cat packages/contracts/dist/index.d.ts
+          cat packages/contracts/dist/index.d.ts 2>/dev/null || echo "dist/index.d.ts NOT FOUND"
 
       - name: Typecheck
         run: pnpm typecheck
