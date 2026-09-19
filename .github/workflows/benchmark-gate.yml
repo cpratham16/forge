@@ -27,7 +27,7 @@ jobs:
         run: |
           LABEL=$(echo '${{ toJson(github.event.pull_request.labels.*.name) }}' | grep -oE 'phase:[0-6]' | head -n1 | cut -d: -f2)
           if [ -z "$LABEL" ]; then
-            echo "::error::No phase:N label found on this PR (N=2..6). Add one before this check can run." 
+            echo "::error::No phase:N label found on this PR (N=2..6). Add one before this check can run."
             exit 1
           fi
           echo "n=$LABEL" >> "$GITHUB_OUTPUT"
@@ -40,6 +40,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-key: forge-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
 
       - name: Setup Python (Harbor is a Python CLI, not an npm package)
         uses: actions/setup-python@v5
@@ -52,8 +53,30 @@ jobs:
       - name: Install workspace deps
         run: pnpm install --frozen-lockfile
 
-      - name: Build all packages
-        run: pnpm build
+      - name: Build contracts
+        run: |
+          echo "=== Building contracts package ==="
+          pnpm --filter @forge/contracts run build
+          echo "Exit code: $?"
+          echo "=== Checking dist folder ==="
+          ls -la packages/contracts/dist/ || echo "DIST NOT FOUND"
+          if [ -f packages/contracts/dist/index.d.ts ]; then
+            echo "index.d.ts exists"
+            grep -n "ModelCapability" packages/contracts/dist/index.d.ts | head -5 || echo "ModelCapability NOT FOUND"
+          else
+            echo "index.d.ts NOT FOUND"
+          fi
+        env:
+          FORCE_COLOR: 1
+
+      - name: Build core
+        run: |
+          echo "Building core..."
+          pnpm --filter @forge/core run build
+          echo "Exit code: $?"
+
+      - name: Build remaining
+        run: pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build
 
       - name: Run this phase's benchmark
         run: pnpm bench:phase -- --phase ${{ steps.phase.outputs.n }} --out benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json

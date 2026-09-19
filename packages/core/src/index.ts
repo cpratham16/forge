@@ -10,6 +10,12 @@ export type { StopRunState, TrippedStopCondition } from './orchestrator/stop-con
 export { HeuristicSubAgentRouter, createSubAgentRouter } from './orchestrator/sub-agent-router.js';
 export type { HeuristicRouterOptions } from './orchestrator/sub-agent-router.js';
 
+export { createComplexityClassifier, type ComplexityClassification, type ComplexitySignals } from './orchestrator/complexity-classifier.js';
+export { createOrchestrationGraphGenerator, type OrchestrationGraph, type OrchestrationGraphGeneratorOptions } from './orchestrator/orchestration-graph.js';
+export { createWorkflowPresetRegistry, createWorkflowPresetExecutor, type WorkflowPreset, type WorkflowStage } from './orchestrator/workflow-presets.js';
+export { createModelRouter, type ModelRouter, type TaskRequirements, type RoutingDecision, type ModelRoutingOptions } from './orchestrator/model-router.js';
+export type { ModelCapability } from '@forge/contracts';
+
 export { runVerificationGate, describeVerificationStatus } from './verification/gate-runner.js';
 export type { VerificationGateResult } from './verification/gate-runner.js';
 

@@ -345,6 +345,17 @@ export interface AdapterConformance {
   verifiedAt?: number;
 }
 
+// ----- Model Capability (for model routing) -----
+export interface ModelCapability {
+  name: string;
+  costTier: 'free' | 'low' | 'medium' | 'high' | 'premium';
+  latencyMs: number;
+  contextWindow: number;
+  strengths: string[];
+  provider: string;
+  modelName: string;
+}
+
 // ----- Supporting types previously missing -----
 export interface RepoState {
   root: string;
