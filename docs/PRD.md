@@ -118,8 +118,11 @@ PolicyDecision    — allow/approve/deny with rationale
 | M11 | Phase 4 | `SubAgentRouter` | Heuristic routing works |
 | M12 | Phase 5 | npm publish v0.1 | Real usage |
 | M13+ | Phase 6 | Adaptive orchestration + self-improvement | Internal OQS + Terminal-Bench measured |
+| M14+ | Phase 7 | Capability isolation + v1.0 gate closure | Isolation enforced; OQS ≥ 0.7; v1.0 release point reached |
 
 **Correction note:** `ContextPort` (M7) previously had no corresponding deliverable in `PHASED_PLAN.md` Phase 3 — the phase's original scope covered `ToolPort`, `VerificationPort`, `TracePort`, and `PolicyPort` only. `PHASED_PLAN.md` has been updated to include `ContextPort` in Phase 3 so every milestone now maps to a phase deliverable.
+
+**Extension note:** Phase 7 is an addition to the original 0–6 roadmap. The original plan gated `v1.0.0` to "after Phase 6"; with Phase 7 the release point moves to "after Phase 7", because the §5 capability-isolation principle and several §10 v1.0 metrics were still unmet after Phase 6. See `PHASED_PLAN.md` Phase 7 for scope, and `AGENTS.md` §5 / §8 for the release workflow.
 
 ## 12. Open Questions
 

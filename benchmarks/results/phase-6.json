@@ -1,0 +1,91 @@
+{
+  "phase": 6,
+  "passAt1": 1,
+  "costPerTaskUsd": 0,
+  "latencyP50Seconds": 0.001,
+  "taskCount": 1,
+  "oqs": {
+    "planQuality": 0.9428571428571428,
+    "assignmentQuality": 0.4,
+    "coordination": 0.3571428571428572,
+    "deliverableQuality": 0.7999999999999999,
+    "efficiency": 1,
+    "composite": 0.6971428571428572,
+    "details": {
+      "driftReport": {
+        "taskId": "task-6-bench",
+        "driftScore": 0.44999999999999996,
+        "items": [
+          {
+            "type": "unexpected_file_modification",
+            "description": "Modified file 'src/architecture.md' not in task scope",
+            "detectedAt": 1789811471309,
+            "severity": "medium",
+            "details": {
+              "file": "src/architecture.md",
+              "plannedFiles": [
+                "src/payment.ts",
+                "src/security.ts",
+                "src/api.ts",
+                "src/tests/*.ts"
+              ]
+            }
+          },
+          {
+            "type": "unexpected_file_modification",
+            "description": "Modified file 'src/auth.ts' not in task scope",
+            "detectedAt": 1789811471309,
+            "severity": "medium",
+            "details": {
+              "file": "src/auth.ts",
+              "plannedFiles": [
+                "src/payment.ts",
+                "src/security.ts",
+                "src/api.ts",
+                "src/tests/*.ts"
+              ]
+            }
+          },
+          {
+            "type": "omitted_task",
+            "description": "Planned file 'src/security.ts' was not touched",
+            "detectedAt": 1789811471309,
+            "severity": "low",
+            "details": {
+              "file": "src/security.ts"
+            }
+          },
+          {
+            "type": "omitted_task",
+            "description": "Planned file 'src/api.ts' was not touched",
+            "detectedAt": 1789811471309,
+            "severity": "low",
+            "details": {
+              "file": "src/api.ts"
+            }
+          },
+          {
+            "type": "omitted_task",
+            "description": "Planned file 'src/tests/*.ts' was not touched",
+            "detectedAt": 1789811471309,
+            "severity": "low",
+            "details": {
+              "file": "src/tests/*.ts"
+            }
+          }
+        ],
+        "projectedFromTraceEvents": 23,
+        "timestamp": 1789811471309
+      },
+      "dimensionWeights": {
+        "planQuality": 0.25,
+        "assignmentQuality": 0.2,
+        "coordination": 0.2,
+        "deliverableQuality": 0.2,
+        "efficiency": 0.15
+      }
+    }
+  },
+  "mode": "internal-oqs-mafbench",
+  "modeNote": "Internal OQS + MAFBench evaluation on synthetic HIGH complexity task with adaptive orchestration"
+}

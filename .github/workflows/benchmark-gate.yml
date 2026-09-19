@@ -2,7 +2,7 @@ name: Benchmark Gate
 
 # Phases 0 and 1 have no benchmark defined in docs/PHASED_PLAN.md — label
 # those PRs "phase:0" or "phase:1" and this job skips itself rather than
-# inventing a benchmark run. Label PRs for phases 2-6 with "phase:N" so the
+# inventing a benchmark run. Label PRs for phases 2-7 with "phase:N" so the
 # job knows which phase's benchmark + baseline to use.
 on:
   pull_request:
@@ -25,9 +25,9 @@ jobs:
       - name: Determine phase number from PR label
         id: phase
         run: |
-          LABEL=$(echo '${{ toJson(github.event.pull_request.labels.*.name) }}' | grep -oE 'phase:[0-6]' | head -n1 | cut -d: -f2)
+          LABEL=$(echo '${{ toJson(github.event.pull_request.labels.*.name) }}' | grep -oE 'phase:[0-7]' | head -n1 | cut -d: -f2)
           if [ -z "$LABEL" ]; then
-            echo "::error::No phase:N label found on this PR (N=2..6). Add one before this check can run."
+            echo "::error::No phase:N label found on this PR (N=2..7). Add one before this check can run."
             exit 1
           fi
           echo "n=$LABEL" >> "$GITHUB_OUTPUT"

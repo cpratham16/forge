@@ -25,6 +25,16 @@ export type { TraceModelDecoratorOptions } from './trace/trace-model-decorator.j
 export { RUNTIME_FLOOR, checkRuntimeFloor } from './policy/runtime-floor.js';
 export type { RuntimeFloorRule } from './policy/runtime-floor.js';
 
+export {
+  CONTROL_PLANE_FLOOR,
+  DEFAULT_CONTROL_PORT,
+  resolveControlPlaneSurface,
+  evaluateCapabilityIsolation,
+  CapabilityIsolationToolDecorator,
+  DEFAULT_ISOLATION_EVALUATION_TIMEOUT_MS,
+} from './policy/capability-isolation.js';
+export type { CapabilityIsolationToolDecoratorOptions } from './policy/capability-isolation.js';
+
 export { DefaultPolicyPort } from './policy/default-policy.js';
 export type { DefaultPolicyOptions } from './policy/default-policy.js';
 
@@ -39,3 +49,9 @@ export type { OQSInput, OQSWeights, OQSScore } from './quality/oqs-scorer.js';
 
 export { projectDriftReport } from './quality/drift-report.js';
 export type { DriftProjectionOptions } from './quality/drift-report.js';
+
+export { scoreRigorPillars, DEFAULT_RIGOR_PILLAR_WEIGHTS } from './quality/rigor-pillar-scorer.js';
+export type { RigorPillarScore, RigorPillarWeights } from './quality/rigor-pillar-scorer.js';
+
+export { attributeModelCost } from './quality/cost-attribution.js';
+export type { CostAttributionResult, CostAttributionOptions, ModelCostRate, AgentCostLine } from './quality/cost-attribution.js';

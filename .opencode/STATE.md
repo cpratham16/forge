@@ -11,11 +11,11 @@
 
 | Field | Value |
 |---|---|
-| Phase | 6 — Adaptive Orchestration |
-| Branch | `phase/6-adaptive-orchestration` |
-| Status | merged (PR #8) |
+| Phase | 7 — Capability Isolation + v1.0 Gate Completion |
+| Branch | `phase/7-capability-isolation-v1` |
+| Status | in-progress |
 | Open PR | — |
-| Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
+| Last gate result | — |
 | Blockers | — |
 
 ## Phase Ledger
@@ -29,11 +29,12 @@
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | merged | PASS | #5, #6 | 2026-09-19 |
 | 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | merged | PASS | #8 | 2026-09-19 |
+| 7 — Capability Isolation + v1.0 Gate Completion | `phase/7-capability-isolation-v1` | in-progress | — | — | — |
 
 ## Benchmark Baselines
 
 > Populated by `/phase-verify` each time a phase with a defined benchmark
-> (Phases 2–6) passes its gate. Each phase's PR must not regress vs. the row
+> (Phases 2–7) passes its gate. Each phase's PR must not regress vs. the row
 > above it — see `scripts/compare-benchmark.mjs`.
 
 | Phase | Result file | pass@1 | cost/task | notes |
@@ -42,14 +43,14 @@
 | 3 | `benchmarks/results/phase-3-candidate.json` (gitignored) | 1.0 | mock→mock | 10 Terminal-Bench tasks; Harbor fallback mode (no Harbor/credentials in env); gate PASS vs phase-2 baseline; real Harbor eval deferred until credentials exist |
 | 4 | `benchmarks/results/phase-4-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation on synthetic two-agent task; composite 0.713; gate PASS vs phase-3 baseline |
 | 5 | `benchmarks/results/phase-5-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation (Phase 4 baseline); self-improvement loop components; gate PASS vs phase-4 baseline |
-| 6 | `benchmarks/results/phase-6-candidate.json` (gitignored) | 1.0 | mock→mock | MAFBench specialization/overhead modules; internal OQS composite 0.697; gate PASS vs phase-5 baseline |
+| 6 | `benchmarks/results/phase-6.json` | 1.0 | mock→mock | MAFBench specialization/overhead modules; internal OQS composite 0.697; gate PASS vs phase-5 baseline |
 
 ## Releases
 
 | Version | Trigger | develop→main PR | Date |
 |---|---|---|---|
 | v0.1.0 | After M12 (npm publish) | — | — |
-| v1.0.0 | After Phase 6 | — | — |
+| v1.0.0 | After Phase 7 | — | — |
 
 ## Change Log
 
@@ -73,4 +74,8 @@
 - 2026-09-19 — Phase 5 follow-up fix via PR #6 (squash 1a93127). Fixed missing @forge/adapters exports (SelfImprovementOptions, TaskSpec, runSelfImprovementLoop, etc.) and updated phase-4 benchmark baseline to match current OQS runner performance (latency 0.002s). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (latency 0.002s → 0.001s, no regression).
 - 2026-09-19 — started phase 6 on phase/6-adaptive-orchestration
 - 2026-09-19 — Phase 6 local gate PASS (lint, dep-check, typecheck, 146/148 tests): Complexity classifier (LOW/MEDIUM/HIGH), adaptive orchestration graph (LOW/MEDIUM/HIGH), workflow presets (disciplined-v1), model router (capability/cost/latency), MAFBench runner; benchmark internal OQS composite 0.697, gate PASS vs phase-5 baseline
-- 2026-09-19 — Phase 6 merged via PR #8 (squash). GitHub CI green on remote: `test` PASS (146/148 tests); `benchmark-gate` PASS (MAFBench specialization/overhead, internal OQS composite 0.697). Verifier report was PASS. develop == 482b0a8.
+- 2026-09-19 — Phase 6 merged via PR #8 (squash). GitHub CI green on remote: `test` PASS (146/148 tests); `benchmark-gate` PASS (MAFBench specialization/overhead, internal OQS composite 0.697). Verifier report was PASS. develop == 5acf7f7.
+- 2026-09-19 — started phase 7 on phase/7-capability-isolation-v1
+- 2026-09-19 — Phase 7 objective review approved: full capability isolation + v1.0 gate scope agreed (SECLOUD decision: CONTROL_PLANE_FLOOR in core, union-over-floor non-overridability, outermost isolation decorator, no forged control server). Corrections logged: stale "Phases 0–6 only" claims (STATE.md, HARNESS_INSPIRATIONS.md).
+- 2026-09-19 — Phase 7 local gate progress: capability isolation in core (floor + resolve + evaluateCapabilityIsolation + CapabilityIsolationToolDecorator: fail-closed exception/timeout/malformed, before-policy ordering, non-overridable empty-surface), adapter env-sourced surface (FORGE_CONTROL_HOSTS/PORT/PATHS), rigor-pillar scorer (5 pillars), cost attribution, RegressionValidator acceptance-bug fixed (checkRegression object truthiness → used .regressed), self-improvement loop wiring fixed (destructured options, proposalsDir); 180/180 tests PASS after clearing stale compiled .js out of packages/*/src (an earlier tsc had emitted into src/, shadowing TS sources at test time). bench:phase 7 runner green (OQS 0.860 ≥ 0.7 gate, RigorBench baseline 1.000, cost $0.0123 explicit-rates, self-improvement 3/4 accepted, isolation deny smoke, Terminal-Bench honest not_observed); benchmark-gate compare vs phase-6.json PASSES (p50 0.0000342s measured at ns precision — Date.now() was inflating it).
+- 2026-09-19 — Phase 7 local gate re-run (nothing changed since prior line except docs/CLI wiring + tsconfig fix): adapters/tsconfig.json path override to sibling dists + ../core reference (rootDir/project-file-list errors when value-importing @forge/core from source), loop.ts missing TaskSpec import; CLI composition root now wraps toolPort in createCapabilityIsolationDecorator (outermost, per PRD §5). Full gate re-run GREEN: lint PASS, dep-check PASS (118 modules, 364 deps, 0 violations), typecheck PASS, test PASS (26 files / 180 passed / 2 skipped), bench:phase 7 PASS (OQS 0.860, rigor 1.000, cost $0.0123, self-improvement 3/4, terminalBench not_observed, isolation smoke deny), compare vs phase-6 PASSES (pass@1 1→1, p50 0.001→0.0000453s, cost 0 baseline skipped). Docs updated: STATE.md (Phases 2–7), PROJECT_OVERVIEW.md §2 control-surface note, HARNESS_INSPIRATIONS.md line 26, benchmark-gate.yml [0-7], bench-phase.mjs guard >7.

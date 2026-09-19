@@ -215,6 +215,22 @@ export interface PolicyPort {
   evaluate(action: ActionRequest): Promise<PolicyDecision>;
 }
 
+// ----- Capability Isolation (Phase 7) -----
+/**
+ * Describes the harness control plane the agent execution environment must
+ * never reach. The compiled-in floor (packages/core) is the non-overridable
+ * minimum; configured surfaces may only ADD hosts/ports/paths, never remove
+ * floor entries.
+ */
+export interface ControlPlaneSurface {
+  /** Hostnames/addresses the harness control interface binds to. */
+  controlHosts: readonly string[];
+  /** Ports the harness control interface listens on. */
+  controlPorts: readonly number[];
+  /** Path prefixes owned by the harness control plane (config, traces, proposals). */
+  controlPaths: readonly string[];
+}
+
 // ----- SubAgentRouter -----
 export interface AgentSpec {
   name: string;

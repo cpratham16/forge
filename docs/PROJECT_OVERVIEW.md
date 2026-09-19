@@ -318,6 +318,20 @@ export interface AdapterConformance {
 ```
 ```
 
+### Capability isolation control surface (Phase 7)
+
+The harness control interface lives on loopback port `4321` by default
+(`DEFAULT_CONTROL_PORT` in `packages/core/src/policy/capability-isolation.ts`).
+The compiled-in floor (`CONTROL_PLANE_FLOOR`) protects `localhost`, `127.0.0.1`,
+`[::1]` on that port plus the `.forge/**` control path. `@forge/adapters` sources
+a wider surface from `FORGE_CONTROL_HOSTS` / `FORGE_CONTROL_PORT` /
+`FORGE_CONTROL_PATHS`, and `@forge/core` **unions** any configured surface over
+the floor — configuration (including `forge.yaml`) can only add protected
+targets, never remove the floor. The isolation boundary is enforced by
+`CapabilityIsolationToolDecorator` as the **outermost** decorator, evaluated
+before configurable policy engines and fail-closed (exception, timeout, or
+malformed boundary decision ⇒ `deny`).
+
 ---
 
 ## 3. Domain Type Reference
