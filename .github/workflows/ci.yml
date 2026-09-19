@@ -7,11 +7,6 @@ on:
     branches: [develop, main]
 
 jobs:
-  # NOTE: the job id below ("test") is what scripts/setup-branch-protection.sh
-  # registers as a required status check context. If GitHub reports it in the
-  # Checks tab under a different label than "test" once this first runs
-  # (it can be prefixed with the workflow name depending on your repo's
-  # settings), update the context string in that script to match exactly.
   test:
     name: test
     runs-on: ubuntu-latest
@@ -39,7 +34,28 @@ jobs:
         run: pnpm dep-check
 
       - name: Clean build artifacts
-        run: pnpm --filter @forge/contracts run clean 2>/dev/null || true && pnpm --filter @forge/core run clean 2>/dev/null || true && pnpm --filter @forge/adapters run clean 2>/dev/null || true && pnpm --filter @forge/cli run clean 2>/dev/null || true
+        run: |
+          echo "Cleaning build artifacts..."
+          pnpm --filter @forge/contracts run clean 2>/dev/null || true
+          pnpm --filter @forge/core run clean 2>/dev/null || true
+          pnpm --filter @forge/adapters run clean 2>/dev/null || true
+          pnpm --filter @forge/cli run clean 2>/dev/null || true
+          echo "Clean completed. Checking dist folders:"
+          ls -la packages/contracts/dist/ 2>/dev/null || echo "contracts/dist not found"
+          ls -la packages/core/dist/ 2>/dev/null || echo "core/dist not found"
+          ls -la packages/adapters/dist/ 2>/dev/null || echo "adapters/dist not found"
+          ls -la packages/cli/dist/ 2>/dev/null || echo "cli/dist not found"
+
+      - name: Build contracts
+        run: pnpm --filter @forge/contracts run build
+        env:
+          FORCE_COLOR: 1
+
+      - name: Verify contracts build
+        run: |
+          echo "Checking contracts dist:"
+          ls -la packages/contracts/dist/
+          cat packages/contracts/dist/index.d.ts | grep -A 5 "ModelCapability"
 
       - name: Typecheck
         run: pnpm typecheck
