@@ -37,6 +37,9 @@ jobs:
       - name: Dependency rule check
         run: pnpm dep-check
 
+      - name: Clean build artifacts
+        run: pnpm --filter @forge/contracts run clean 2>/dev/null || true && pnpm --filter @forge/core run clean 2>/dev/null || true && pnpm --filter @forge/adapters run clean 2>/dev/null || true && pnpm --filter @forge/cli run clean 2>/dev/null || true
+
       - name: Typecheck
         run: pnpm typecheck
 

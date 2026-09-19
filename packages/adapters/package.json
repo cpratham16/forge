@@ -21,6 +21,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
+    "clean": "rm -rf dist",
     "prepublishOnly": "pnpm run build"
   }
 }
