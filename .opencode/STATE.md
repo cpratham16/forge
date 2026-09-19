@@ -11,11 +11,11 @@
 
 | Field | Value |
 |---|---|
-| Phase | 5 — npm Publication + Self-Improvement |
-| Branch | `develop` |
-| Status | merged (PR #5 + PR #6) |
+| Phase | 6 — Adaptive Orchestration |
+| Branch | `phase/6-adaptive-orchestration` |
+| Status | in-progress |
 | Open PR | — |
-| Last gate result | PASS (verifier + GitHub CI `test` + `benchmark-gate`) |
+| Last gate result | — |
 | Blockers | — |
 
 ## Phase Ledger
@@ -28,7 +28,7 @@
 | 3 — Tools, Verification, Context, Trace | `phase/3-tools-verification-context-trace` | merged | PASS | #3 | 2026-09-18 |
 | 4 — Second Agent + OQS | `phase/4-agent-oqs` | merged | PASS | #4 | 2026-09-18 |
 | 5 — npm Publication + Self-Improvement | `phase/5-npm-self-improvement` | merged | PASS | #5, #6 | 2026-09-19 |
-| 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | not-started | — | — | — |
+| 6 — Adaptive Orchestration | `phase/6-adaptive-orchestration` | in-progress | — | — | — |
 
 ## Benchmark Baselines
 
@@ -71,3 +71,4 @@
 - 2026-09-19 — Phase 5 local gate PASS (lint, dep-check, typecheck, 146/148 tests): npm publication infra (A11); AdapterConformance CLI (`forge conformance`); Weakness Miner (`forge mine`); Bounded Proposals (`forge propose`); Regression Validator (`forge validate`); Self-Improvement Loop (`forge improve`); benchmark internal OQS runner with composite 0.713, gate PASS vs phase-4 baseline
 - 2026-09-19 — Phase 5 merged via PR #5 (squash f5d8f64). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (internal OQS composite 0.713, label `phase:5`, compare vs phase-4 baseline). Verifier report was PASS. develop == f5d8f64.
 - 2026-09-19 — Phase 5 follow-up fix via PR #6 (squash 1a93127). Fixed missing @forge/adapters exports (SelfImprovementOptions, TaskSpec, runSelfImprovementLoop, etc.) and updated phase-4 benchmark baseline to match current OQS runner performance (latency 0.002s). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (latency 0.002s → 0.001s, no regression).
+- 2026-09-19 — started phase 6 on phase/6-adaptive-orchestration
