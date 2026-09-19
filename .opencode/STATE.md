@@ -42,7 +42,7 @@
 | 3 | `benchmarks/results/phase-3-candidate.json` (gitignored) | 1.0 | mock→mock | 10 Terminal-Bench tasks; Harbor fallback mode (no Harbor/credentials in env); gate PASS vs phase-2 baseline; real Harbor eval deferred until credentials exist |
 | 4 | `benchmarks/results/phase-4-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation on synthetic two-agent task; composite 0.713; gate PASS vs phase-3 baseline |
 | 5 | `benchmarks/results/phase-5-candidate.json` (gitignored) | 1.0 | mock→mock | Internal OQS evaluation (Phase 4 baseline); self-improvement loop components; gate PASS vs phase-4 baseline |
-| 6 | `benchmarks/results/phase-6-candidate.json` (gitignored) | 1.0 | mock→mock | MAFBench specialization/overhead modules; internal OQS composite 0.697; gate PASS vs phase-5 baseline |
+| 6 | `benchmarks/results/phase-6.json` | 1.0 | mock→mock | MAFBench specialization/overhead modules; internal OQS composite 0.697; gate PASS vs phase-5 baseline |
 
 ## Releases
 
@@ -73,4 +73,4 @@
 - 2026-09-19 — Phase 5 follow-up fix via PR #6 (squash 1a93127). Fixed missing @forge/adapters exports (SelfImprovementOptions, TaskSpec, runSelfImprovementLoop, etc.) and updated phase-4 benchmark baseline to match current OQS runner performance (latency 0.002s). GitHub CI green on remote: `test` PASS; `benchmark-gate` PASS (latency 0.002s → 0.001s, no regression).
 - 2026-09-19 — started phase 6 on phase/6-adaptive-orchestration
 - 2026-09-19 — Phase 6 local gate PASS (lint, dep-check, typecheck, 146/148 tests): Complexity classifier (LOW/MEDIUM/HIGH), adaptive orchestration graph (LOW/MEDIUM/HIGH), workflow presets (disciplined-v1), model router (capability/cost/latency), MAFBench runner; benchmark internal OQS composite 0.697, gate PASS vs phase-5 baseline
-- 2026-09-19 — Phase 6 merged via PR #8 (squash). GitHub CI green on remote: `test` PASS (146/148 tests); `benchmark-gate` PASS (MAFBench specialization/overhead, internal OQS composite 0.697). Verifier report was PASS. develop == 482b0a8.
+- 2026-09-19 — Phase 6 merged via PR #8 (squash). GitHub CI green on remote: `test` PASS (146/148 tests); `benchmark-gate` PASS (MAFBench specialization/overhead, internal OQS composite 0.697). Verifier report was PASS. develop == 5acf7f7.
