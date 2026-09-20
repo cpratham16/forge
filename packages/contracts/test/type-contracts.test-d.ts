@@ -1,4 +1,4 @@
-// Type-level contract tests for @forge/contracts (zero dependencies)
+// Type-level contract tests for @runforge/contracts (zero dependencies)
 import type {
   VerificationResult,
   VerificationStatus,

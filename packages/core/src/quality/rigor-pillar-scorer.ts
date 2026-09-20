@@ -16,7 +16,7 @@
 //      fabrication of success. Failures/skips count as honest abstention.
 //   5. Atomic Transition Integrity — every progress transition is followed by a
 //      verification result or a run outcome (no unvalidated jumps).
-import type { Task, TraceEvent } from '@forge/contracts';
+import type { Task, TraceEvent } from '@runforge/contracts';
 import { matchResource } from '../policy/util.js';
 
 export interface RigorPillarScore {

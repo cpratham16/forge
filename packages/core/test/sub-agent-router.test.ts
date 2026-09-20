@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { createSubAgentRouter } from '../src/orchestrator/sub-agent-router.js';
-import type { AgentSpec, Task } from '@forge/contracts';
+import type { AgentSpec, Task } from '@runforge/contracts';
 
 const agents: AgentSpec[] = [
   { name: 'dev-fast', capabilities: ['coding', 'debugging'], costTier: 'fast', fileOwnership: ['src/**'] },

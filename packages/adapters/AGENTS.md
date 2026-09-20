@@ -1,8 +1,8 @@
-# @forge/adapters — local rules
+# @runforge/adapters — local rules
 
 Where the outside world is allowed in.
 
-- May import `@forge/contracts` and `@forge/core`. May import vendor SDKs and
+- May import `@runforge/contracts` and `@runforge/core`. May import vendor SDKs and
   node builtins — that is this package's entire job.
 - **Every adapter passes the same contract test suite as the mock.** The suite
   lives with the port it implements (`test/<port>/contract.test.ts`). A new

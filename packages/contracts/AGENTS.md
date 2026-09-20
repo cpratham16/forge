@@ -1,4 +1,4 @@
-# @forge/contracts — local rules
+# @runforge/contracts — local rules
 
 The strictest package in the repo. Read before editing anything here.
 

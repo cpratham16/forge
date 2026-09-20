@@ -17,7 +17,7 @@ import type {
   ToolContext,
   ToolPort,
   ToolResult,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { checkRuntimeFloor } from './runtime-floor.js';
 
 export interface PolicyToolDecoratorOptions {

@@ -1,0 +1,35 @@
+name: opencode
+
+# Official OpenCode GitHub Action wiring (restored per item 7 of the
+# fix-known-gaps audit: docs/HARNESS_INSPIRATIONS.md A13 was planned for
+# Phase 0 but this file went missing before it could be committed).
+#
+# Trigger it by commenting "/oc" or "/opencode" on an issue or PR review.
+# Requires an ANTHROPIC_API_KEY secret (repo Settings > Secrets > Actions).
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  opencode:
+    if: |
+      contains(github.event.comment.body, '/oc') ||
+      contains(github.event.comment.body, '/opencode')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        with:
+          model: anthropic/claude-sonnet-4-20250514

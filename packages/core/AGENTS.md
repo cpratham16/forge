@@ -1,8 +1,8 @@
-# @forge/core — local rules
+# @runforge/core — local rules
 
 Domain logic. The part that must stay measurable and replaceable.
 
-- **Imports `@forge/contracts` and nothing else.** No adapters, no vendor SDKs,
+- **Imports `@runforge/contracts` and nothing else.** No adapters, no vendor SDKs,
   no `node:fs` / `node:http` / `node:child_process`. All four are blocked in CI.
 - Everything external arrives by **injection** through a port. If a function
   needs to read a file, it takes a `ToolPort`; it does not import `fs`.

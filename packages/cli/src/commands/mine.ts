@@ -1,5 +1,5 @@
 // `forge mine` — analyze failure traces to identify reusable weakness patterns.
-import { mineWeaknesses, formatWeaknessReport } from '@forge/adapters';
+import { mineWeaknesses, formatWeaknessReport } from '@runforge/adapters';
 
 export async function mineCommand(args: string[]): Promise<string> {
   const traceDirIdx = args.indexOf('--dir');

@@ -4,7 +4,7 @@
 // embed a price table.
 import { describe, it, expect } from 'vitest';
 import { attributeModelCost } from '../src/quality/cost-attribution.js';
-import type { TraceEvent } from '@forge/contracts';
+import type { TraceEvent } from '@runforge/contracts';
 
 function response(agent: string, usage: { inputTokens: number; outputTokens: number }, model?: string): TraceEvent {
   return {

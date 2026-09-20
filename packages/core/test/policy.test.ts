@@ -1,6 +1,6 @@
 // Phase 3 policy tests (PHASED_PLAN Phase 3: A1, A2, A4, A9 and the DENY-blocks test)
 import { describe, it, expect, beforeEach } from 'vitest';
-import type { ActionRequest, PolicyDecision, PolicyGrant, PolicyPort, ToolCall, ToolContext, ToolPort, ToolResult } from '@forge/contracts';
+import type { ActionRequest, PolicyDecision, PolicyGrant, PolicyPort, ToolCall, ToolContext, ToolPort, ToolResult } from '@runforge/contracts';
 import { PolicyToolDecorator, defaultActionMapper } from '../src/policy/policy-tool-decorator.js';
 import { DefaultPolicyPort } from '../src/policy/default-policy.js';
 import { checkRuntimeFloor } from '../src/policy/runtime-floor.js';

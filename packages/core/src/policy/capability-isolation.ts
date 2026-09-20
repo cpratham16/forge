@@ -13,7 +13,7 @@
 //
 // Core is pure: this is string/pattern logic over ActionRequests only. The
 // network-level enforcement that builds the actual surface from the host
-// environment lives in @forge/adapters (packages/adapters/src/policy/).
+// environment lives in @runforge/adapters (packages/adapters/src/policy/).
 import type {
   ActionRequest,
   ControlPlaneSurface,
@@ -22,7 +22,7 @@ import type {
   ToolContext,
   ToolPort,
   ToolResult,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { actionText } from './util.js';
 import { defaultActionMapper } from './policy-tool-decorator.js';
 

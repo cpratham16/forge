@@ -14,7 +14,7 @@ export { createComplexityClassifier, type ComplexityClassification, type Complex
 export { createOrchestrationGraphGenerator, type OrchestrationGraph, type OrchestrationGraphGeneratorOptions } from './orchestrator/orchestration-graph.js';
 export { createWorkflowPresetRegistry, createWorkflowPresetExecutor, type WorkflowPreset, type WorkflowStage } from './orchestrator/workflow-presets.js';
 export { createModelRouter, type ModelRouter, type TaskRequirements, type RoutingDecision, type ModelRoutingOptions } from './orchestrator/model-router.js';
-export type { ModelCapability } from '@forge/contracts';
+export type { ModelCapability } from '@runforge/contracts';
 
 export { runVerificationGate, describeVerificationStatus } from './verification/gate-runner.js';
 export type { VerificationGateResult } from './verification/gate-runner.js';

@@ -1,7 +1,7 @@
 // Single-agent orchestrator tests
 import { describe, it, expect } from 'vitest';
 import { runSingleAgentLoop } from '../src/orchestrator/single-agent-loop.js';
-import type { ModelProvider, ModelRequest, ModelResponse } from '@forge/contracts';
+import type { ModelProvider, ModelRequest, ModelResponse } from '@runforge/contracts';
 
 // Simple mock provider for orchestrator testing
 class TestModelProvider implements ModelProvider {

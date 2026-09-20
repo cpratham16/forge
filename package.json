@@ -1,6 +1,7 @@
 {
   "name": "forge-monorepo",
   "private": true,
+  "license": "Apache-2.0",
   "type": "module",
   "packageManager": "pnpm@9.12.0",
   "engines": {
@@ -14,9 +15,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "bench:phase": "node --import tsx scripts/bench-phase.mjs",
+    "check-claims": "node scripts/check-readme-claims.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build": "pnpm --filter @forge/contracts run build && pnpm --filter @forge/core run build && pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build",
+    "build": "pnpm --filter @runforge/contracts run build && pnpm --filter @runforge/core run build && pnpm --filter @runforge/adapters run build && pnpm --filter @runforge/cli run build",
     "release": "pnpm build && pnpm test && pnpm dep-check && pnpm lint"
   },
   "devDependencies": {

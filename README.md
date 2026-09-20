@@ -143,9 +143,9 @@ Drift: 2 tasks (medium severity)
 Model provider. Tools. Verification. Context. Policy. Tracing. Delegation. Each is a port with a contract. Any implementation of that contract plugs in. You want to run on a local model? Write an adapter. You want a different reviewer? Write an adapter. The orchestrator never changes.
 
 ```bash
-npm install @forge/model-local-llama
-npm install @forge/policy-hipaa
-npm install @forge/context-tree-sitter-repo-map
+npm install @runforge/model-local-llama
+npm install @runforge/policy-hipaa
+npm install @runforge/context-tree-sitter-repo-map
 ```
 
 ---
@@ -259,7 +259,7 @@ Several security and process patterns — fail-closed policy evaluation, a non-o
 
 🔨 **Forge is pre-release.**
 
-Phases 0–5 are merged. Phase 6 (adaptive orchestration) is in progress.
+Phases 0–7 are merged. Phase 7 (capability isolation) is done; the v1.0.0 release point has been reached.
 No version has been published to npm yet.
 
 **Star the repo to follow along.**

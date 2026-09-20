@@ -5,7 +5,7 @@
 // Guarantee: behaviour of the wrapped provider is unchanged — the same
 // response object flows through untouched. Recording failures are swallowed:
 // tracing must never break a model call.
-import type { ModelProvider, ModelRequest, ModelResponse, TraceEvent, TracePort } from '@forge/contracts';
+import type { ModelProvider, ModelRequest, ModelResponse, TraceEvent, TracePort } from '@runforge/contracts';
 
 export interface TraceModelDecoratorOptions {
   trace: TracePort;

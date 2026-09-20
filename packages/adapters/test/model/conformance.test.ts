@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { MockModelProvider } from '../../src/model/mock.js';
 import { ClaudeModelProvider } from '../../src/model/claude.js';
-import type { AdapterConformance } from '@forge/contracts';
+import type { AdapterConformance } from '@runforge/contracts';
 
 function validateConformance(conformance: AdapterConformance): void {
   expect(conformance).toHaveProperty('adapterName');

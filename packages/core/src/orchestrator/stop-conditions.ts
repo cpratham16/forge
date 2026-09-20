@@ -1,6 +1,6 @@
 // StopCondition evaluation (A6). The orchestrator checks these before every
 // retry attempt and terminates immediately once a threshold is reached.
-import type { StopCondition } from '@forge/contracts';
+import type { StopCondition } from '@runforge/contracts';
 
 export interface StopRunState {
   attempts: number;

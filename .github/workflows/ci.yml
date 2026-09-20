@@ -36,10 +36,10 @@ jobs:
       - name: Clean build artifacts
         run: |
           echo "Cleaning build artifacts..."
-          pnpm --filter @forge/contracts run clean 2>/dev/null || true
-          pnpm --filter @forge/core run clean 2>/dev/null || true
-          pnpm --filter @forge/adapters run clean 2>/dev/null || true
-          pnpm --filter @forge/cli run clean 2>/dev/null || true
+          pnpm --filter @runforge/contracts run clean 2>/dev/null || true
+          pnpm --filter @runforge/core run clean 2>/dev/null || true
+          pnpm --filter @runforge/adapters run clean 2>/dev/null || true
+          pnpm --filter @runforge/cli run clean 2>/dev/null || true
           echo "Clean completed. Checking dist folders:"
           ls -la packages/contracts/dist/ 2>/dev/null || echo "contracts/dist not found"
           ls -la packages/core/dist/ 2>/dev/null || echo "core/dist not found"
@@ -49,7 +49,7 @@ jobs:
       - name: Build contracts
         run: |
           echo "=== Building contracts package ==="
-          pnpm --filter @forge/contracts run build
+          pnpm --filter @runforge/contracts run build
           echo "Exit code: $?"
           ls -la packages/contracts/dist/ || echo "DIST NOT FOUND"
           cat packages/contracts/dist/index.d.ts 2>/dev/null | grep -A 5 "ModelCapability" || echo "ModelCapability NOT FOUND"
@@ -57,11 +57,11 @@ jobs:
       - name: Build core
         run: |
           echo "Building core..."
-          pnpm --filter @forge/core run build
+          pnpm --filter @runforge/core run build
           echo "Exit code: $?"
 
       - name: Build remaining
-        run: pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build
+        run: pnpm --filter @runforge/adapters run build && pnpm --filter @runforge/cli run build
 
       - name: Verify contracts build
         run: |
@@ -71,3 +71,6 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      - name: Claims test (README status line matches STATE.md phase)
+        run: pnpm check-claims

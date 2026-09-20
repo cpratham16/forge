@@ -3,7 +3,7 @@ import type {
   AgentSelection,
   SubAgentRouter,
   Task,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 export interface HeuristicRouterOptions {
   preferReasoningForComplex?: boolean;

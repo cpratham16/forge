@@ -1,4 +1,4 @@
-import type { AgentSpec, ToolCall, ToolContext, ToolPort, ToolResult } from '@forge/contracts';
+import type { AgentSpec, ToolCall, ToolContext, ToolPort, ToolResult } from '@runforge/contracts';
 
 export interface FileOwnershipDecoratorOptions {
   agents: AgentSpec[];

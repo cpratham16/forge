@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 import { promises as fs } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import type { TraceEvent } from '@forge/contracts';
+import type { TraceEvent } from '@runforge/contracts';
 import { JsonlTraceSink, loadTraceEvents, loadRun, listRunIds, getRunId } from '../../src/trace/jsonl.js';
 
 function event(runId: string, type: TraceEvent['type'], overrides: Partial<TraceEvent> = {}): TraceEvent {

@@ -2,7 +2,7 @@ import type {
   AgentSpec,
   Task,
   TaskComplexity,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { createComplexityClassifier } from './complexity-classifier.js';
 
 export interface OrchestrationGraph {

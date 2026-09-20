@@ -1,5 +1,5 @@
 // `forge propose` — generate bounded harness edit proposals from weakness analysis.
-import { generateProposals, formatProposal, saveProposals } from '@forge/adapters';
+import { generateProposals, formatProposal, saveProposals } from '@runforge/adapters';
 
 export async function proposeCommand(args: string[]): Promise<string> {
   const traceDirIdx = args.indexOf('--dir');

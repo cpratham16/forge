@@ -207,7 +207,7 @@ This plan originally cited "EPOB" (Plan Quality, Assignment Quality, Coordinatio
 ## Part 8: What to Build vs. What to Compose
 
 ### Build (Forge-Specific)
-- Port contracts (`@forge/contracts`)
+- Port contracts (`@runforge/contracts`)
 - Orchestration quality scorer (internal OQS, 5-dim — see EPOB Caveat, Part 3)
 - Complexity classifier + dynamic graph generator
 - Self-improvement loop (weakness mining → bounded proposal → regression validation)

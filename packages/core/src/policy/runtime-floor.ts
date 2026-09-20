@@ -7,7 +7,7 @@
 // Modeled on the CCH deny matrix (PHASED_PLAN Phase 3, A4): verification
 // bypass, destructive resets, force pushes, and secret material are
 // unconditionally denied.
-import type { ActionRequest, PolicyDecision } from '@forge/contracts';
+import type { ActionRequest, PolicyDecision } from '@runforge/contracts';
 import {
   commandText,
   containsSecret,

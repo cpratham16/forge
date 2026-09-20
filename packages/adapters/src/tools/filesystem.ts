@@ -4,7 +4,7 @@
 // also enforced upstream by the PolicyToolDecorator).
 import { promises as fs } from 'node:fs';
 import { isAbsolute, join, relative, resolve } from 'node:path';
-import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@forge/contracts';
+import type { ToolCall, ToolContext, ToolDefinition, ToolResult, AdapterConformance } from '@runforge/contracts';
 import type { ToolFamily } from './types.js';
 
 const MAX_READ_CHARS = 200_000;

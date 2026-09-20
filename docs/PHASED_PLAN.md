@@ -193,7 +193,7 @@ Add a second declarative agent (reviewer) and measure orchestration quality, not
 Ship v0.1, gather real traces, close the loop.
 
 ### Deliverables
-- Publish `@forge/cli` to npm (real usage before ambitious layer)
+- Publish `@runforge/cli` to npm (real usage before ambitious layer)
 - Surface `AdapterConformance` across published CLI adapters (A11)
 - **Weakness mining** script: analyze failure traces to identify reusable failure mechanisms. Cluster by mechanism: missing final artifact, repeated invalid command, no recovery after tool error, exploration without implementation.
 - **Bounded proposal** system: define editable surface (system prompt, tool selection rules, verification middleware, recovery policy). Each proposal states behavior changed and regression risk.

@@ -56,7 +56,7 @@ jobs:
       - name: Build contracts
         run: |
           echo "=== Building contracts package ==="
-          pnpm --filter @forge/contracts run build
+          pnpm --filter @runforge/contracts run build
           echo "Exit code: $?"
           echo "=== Checking dist folder ==="
           ls -la packages/contracts/dist/ || echo "DIST NOT FOUND"
@@ -72,11 +72,11 @@ jobs:
       - name: Build core
         run: |
           echo "Building core..."
-          pnpm --filter @forge/core run build
+          pnpm --filter @runforge/core run build
           echo "Exit code: $?"
 
       - name: Build remaining
-        run: pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build
+        run: pnpm --filter @runforge/adapters run build && pnpm --filter @runforge/cli run build
 
       - name: Run this phase's benchmark
         run: pnpm bench:phase -- --phase ${{ steps.phase.outputs.n }} --out benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json
@@ -86,8 +86,12 @@ jobs:
           PREV=$((${{ steps.phase.outputs.n }} - 1))
           BASELINE="benchmarks/results/phase-${PREV}.json"
           if [ ! -f "$BASELINE" ]; then
-            echo "::warning::No baseline file at $BASELINE yet — treating this as the first measured baseline, not a regression check."
-            exit 0
+            if [ "$PREV" -le 1 ]; then
+              echo "::warning::No baseline file at $BASELINE yet (phase ${PREV} has no predecessor benchmark by design) — treating this as the first measured baseline, not a regression check."
+              exit 0
+            fi
+            echo "::error::No baseline file at $BASELINE, and phase ${{ steps.phase.outputs.n }} must be compared against phase-${PREV}. A missing predecessor baseline is a backfill error, not a silent pass. Run 'pnpm bench:phase -- --phase ${PREV} --out benchmarks/results/phase-${PREV}.json' and commit the result, then re-run."
+            exit 1
           fi
           node scripts/compare-benchmark.mjs \
             benchmarks/results/phase-${{ steps.phase.outputs.n }}-candidate.json \

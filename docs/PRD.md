@@ -7,7 +7,7 @@
 | **Name** | Forge |
 | **Tagline** | The runtime you use to build and run your own coding agents |
 | **Category** | Agent orchestration runtime |
-| **Distribution** | npm (`@forge/cli`, `@forge/core`, `@forge/contracts`) |
+| **Distribution** | npm (`@runforge/cli`, `@runforge/core`, `@runforge/contracts`) |
 | **License** | Apache 2.0 |
 | **Primary interface** | CLI + TypeScript SDK |
 | **Secondary interface** | Programmatic API, npm plugin ecosystem |

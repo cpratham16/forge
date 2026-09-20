@@ -1,15 +1,15 @@
 // `forge conformance` — surface AdapterConformance metadata for all registered adapters
-import { MockModelProvider } from '@forge/adapters';
-import { ClaudeModelProvider } from '@forge/adapters';
-import { OpenAICompatibleModelProvider } from '@forge/adapters';
-import { FilesystemTool } from '@forge/adapters';
-import { ShellTool } from '@forge/adapters';
-import { GitTool } from '@forge/adapters';
-import { SearchTool } from '@forge/adapters';
-import { ShellCommandVerifier } from '@forge/adapters';
-import { FilesystemContextAdapter } from '@forge/adapters';
-import { JsonlTraceSink } from '@forge/adapters';
-import type { AdapterConformance } from '@forge/contracts';
+import { MockModelProvider } from '@runforge/adapters';
+import { ClaudeModelProvider } from '@runforge/adapters';
+import { OpenAICompatibleModelProvider } from '@runforge/adapters';
+import { FilesystemTool } from '@runforge/adapters';
+import { ShellTool } from '@runforge/adapters';
+import { GitTool } from '@runforge/adapters';
+import { SearchTool } from '@runforge/adapters';
+import { ShellCommandVerifier } from '@runforge/adapters';
+import { FilesystemContextAdapter } from '@runforge/adapters';
+import { JsonlTraceSink } from '@runforge/adapters';
+import type { AdapterConformance } from '@runforge/contracts';
 
 interface ConformanceTableRow {
   adapter: string;

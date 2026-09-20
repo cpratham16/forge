@@ -41,22 +41,22 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.126.0
         version: 0.126.0
-      '@forge/contracts':
+      '@runforge/contracts':
         specifier: workspace:*
         version: link:../contracts
-      '@forge/core':
+      '@runforge/core':
         specifier: workspace:*
         version: link:../core
 
   packages/cli:
     dependencies:
-      '@forge/adapters':
+      '@runforge/adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@forge/contracts':
+      '@runforge/contracts':
         specifier: workspace:*
         version: link:../contracts
-      '@forge/core':
+      '@runforge/core':
         specifier: workspace:*
         version: link:../core
 
@@ -64,10 +64,10 @@ importers:
 
   packages/core:
     dependencies:
-      '@forge/adapters':
+      '@runforge/adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@forge/contracts':
+      '@runforge/contracts':
         specifier: workspace:*
         version: link:../contracts
 

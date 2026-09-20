@@ -3,8 +3,8 @@
 // FORGE_* environment surface sourcing, and passes benign work through.
 // The compiled-in floor keeps applying even when env is empty/absent.
 import { describe, it, expect } from 'vitest';
-import type { ToolCall, ToolContext, ToolPort, ToolResult } from '@forge/contracts';
-import { CONTROL_PLANE_FLOOR, DEFAULT_CONTROL_PORT } from '@forge/core';
+import type { ToolCall, ToolContext, ToolPort, ToolResult } from '@runforge/contracts';
+import { CONTROL_PLANE_FLOOR, DEFAULT_CONTROL_PORT } from '@runforge/core';
 import {
   createCapabilityIsolationDecorator,
   controlPlaneSurfaceFromEnv,

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { calculateOQS, projectDriftReport } from '../src/quality/index.js';
-import type { Task, TraceEvent, ReviewResult, AgentMessage } from '@forge/contracts';
+import type { Task, TraceEvent, ReviewResult, AgentMessage } from '@runforge/contracts';
 
 function createTraceEvent(type: TraceEvent['type'], agent: string, payload: Record<string, unknown> = {}): TraceEvent {
   return {

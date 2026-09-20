@@ -5,8 +5,8 @@
     "outDir": "dist",
     "composite": true,
     "paths": {
-      "@forge/contracts": ["../contracts/dist/index.js"],
-      "@forge/adapters": ["../adapters/dist/index.js"]
+      "@runforge/contracts": ["../contracts/dist/index.js"],
+      "@runforge/adapters": ["../adapters/dist/index.js"]
     }
   },
   "include": ["src/**/*"],

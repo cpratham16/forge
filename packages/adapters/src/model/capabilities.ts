@@ -1,7 +1,7 @@
 // Model Capabilities Registry — provider-specific model metadata for routing.
 // This file lives in adapters because it contains vendor-specific knowledge.
 // Core packages must not know about specific providers.
-import type { ModelCapability } from '@forge/contracts';
+import type { ModelCapability } from '@runforge/contracts';
 
 /**
  * Known model capabilities registry

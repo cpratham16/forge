@@ -6,7 +6,7 @@
 // a model price table (that would be an external claim maintained from
 // memory, the exact thing docs/ disallows). Without rates, costUsd stays 0
 // and the `rateSource` field says so honestly.
-import type { TraceEvent } from '@forge/contracts';
+import type { TraceEvent } from '@runforge/contracts';
 
 export interface ModelCostRate {
   inputPerMTokUsd: number;

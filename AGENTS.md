@@ -40,6 +40,11 @@ duplicate content between them — if you need the deliverables for a phase, ope
   that something works is not evidence. Never mark a milestone complete in
   `.opencode/STATE.md` on the basis of your own read of the code; only on the
   basis of a command actually being run and passing.
+- Before writing a new ADR, find the next free number in
+  `docs/PROJECT_OVERVIEW.md` §9's ADR table — don't just take the highest
+  filename in `docs/adr/`, since two branches doing that in parallel can pick
+  the same number (ADR-002/003 collided exactly this way; they were renumbered
+  to 011/012). The table is the registry; the filenames are not.
 
 ## 3. Session startup protocol
 

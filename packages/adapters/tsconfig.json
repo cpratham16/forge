@@ -4,8 +4,8 @@
     "rootDir": "src",
     "outDir": "dist",
     "paths": {
-      "@forge/contracts": ["../contracts/dist/index.js"],
-      "@forge/core": ["../core/dist/index.js"]
+      "@runforge/contracts": ["../contracts/dist/index.js"],
+      "@runforge/core": ["../core/dist/index.js"]
     }
   },
   "include": ["src/**/*"],

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { createFileOwnershipDecorator } from '../src/policy/file-ownership-decorator.js';
-import type { ToolPort, ToolCall, ToolResult, ToolContext, AgentSpec } from '@forge/contracts';
+import type { ToolPort, ToolCall, ToolResult, ToolContext, AgentSpec } from '@runforge/contracts';
 
 const agents: AgentSpec[] = [
   { name: 'developer', capabilities: ['coding'], costTier: 'balanced', fileOwnership: ['src/**', 'tests/**'] },

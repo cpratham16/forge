@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { runTwoAgentLoop } from '../src/orchestrator/two-agent-loop.js';
-import type { ModelProvider, ModelResponse, OrchestratorConfig } from '@forge/contracts';
+import type { ModelProvider, ModelResponse, OrchestratorConfig } from '@runforge/contracts';
 
 function createMockModelProvider(responses: ModelResponse[]): ModelProvider {
   let callIndex = 0;

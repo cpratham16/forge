@@ -9,13 +9,13 @@
 ### What Exists (Phases 0-4 Complete)
 | Package | Status | Key Exports |
 |---------|--------|-------------|
-| `@forge/contracts` | ✅ | All ports + domain types + `AdapterConformance` |
-| `@forge/core` | ✅ | Orchestration (single/two-agent), OQS, Drift, Policy, Trace, StopConditions |
-| `@forge/adapters` | ✅ | Model (Claude, Mock, OpenAI-Compatible), Tools, Verification, Context, Trace, Policy |
-| `@forge/cli` | ⚠️ Private | `forgeRun()`, `trace show/list`, bin entry point |
+| `@runforge/contracts` | ✅ | All ports + domain types + `AdapterConformance` |
+| `@runforge/core` | ✅ | Orchestration (single/two-agent), OQS, Drift, Policy, Trace, StopConditions |
+| `@runforge/adapters` | ✅ | Model (Claude, Mock, OpenAI-Compatible), Tools, Verification, Context, Trace, Policy |
+| `@runforge/cli` | ⚠️ Private | `forgeRun()`, `trace show/list`, bin entry point |
 
 ### What's Missing for Phase 5
-1. **npm publication**: `@forge/cli` is `private: true`, no build step, no dist exports
+1. **npm publication**: `@runforge/cli` is `private: true`, no build step, no dist exports
 2. **AdapterConformance CLI**: No `forge conformance` command to surface adapter metadata
 3. **Weakness Mining**: No trace analysis script
 4. **Bounded Proposals**: No proposal system for harness edits
@@ -28,7 +28,7 @@
 
 ### 5.1 npm Publication Infrastructure (M12)
 
-**Goal**: Make `@forge/cli` publishable to npm as a public package.
+**Goal**: Make `@runforge/cli` publishable to npm as a public package.
 
 **Required Changes**:
 
@@ -92,7 +92,7 @@ $ forge conformance --json
 ```
 
 **Implementation**:
-- Iterate all adapters exported from `@forge/adapters`
+- Iterate all adapters exported from `@runforge/adapters`
 - Call static `.conformance()` method on each
 - Validate against `AdapterConformance` contract
 - Render as table (default) or JSON
@@ -318,8 +318,8 @@ packages/cli/src/commands/improve.ts
 // package.json
 {
   "scripts": {
-    "build": "pnpm --filter @forge/cli run build",
-    "build:all": "pnpm --filter @forge/contracts run build && pnpm --filter @forge/core run build && pnpm --filter @forge/adapters run build && pnpm --filter @forge/cli run build",
+    "build": "pnpm --filter @runforge/cli run build",
+    "build:all": "pnpm --filter @runforge/contracts run build && pnpm --filter @runforge/core run build && pnpm --filter @runforge/adapters run build && pnpm --filter @runforge/cli run build",
     "release": "pnpm build && pnpm test && pnpm dep-check && changeset publish"
   }
 }
@@ -373,10 +373,10 @@ Per `RESEARCH_AND_DISCUSSION.md` Part 7 (Capability Isolation):
 
 | Package | Purpose | Location |
 |---------|---------|----------|
-| `diff` | Generate unified diffs for proposals | `@forge/core` (dev) |
-| `fast-glob` | Find trace files | `@forge/core` |
-| `js-yaml` | Parse forge.yaml for editable surfaces | `@forge/core` |
-| `@types/diff` | Types for diff | `@forge/core` (dev) |
+| `diff` | Generate unified diffs for proposals | `@runforge/core` (dev) |
+| `fast-glob` | Find trace files | `@runforge/core` |
+| `js-yaml` | Parse forge.yaml for editable surfaces | `@runforge/core` |
+| `@types/diff` | Types for diff | `@runforge/core` (dev) |
 
 **Note**: No new external SDKs in `core`. All new deps in `adapters` or `cli` only.
 
@@ -406,7 +406,7 @@ Per `AGENTS.md` §7:
 
 ## Questions for Alignment
 
-1. **npm scope**: Publish as `@forge/cli` only, or also `@forge/core`, `@forge/contracts`, `@forge/adapters`?
+1. **npm scope**: Publish as `@runforge/cli` only, or also `@runforge/core`, `@runforge/contracts`, `@runforge/adapters`?
 2. **Registry**: Public npmjs.org, or private registry first?
 3. **Versioning**: Start at `0.1.0` or `0.0.1` for pre-release?
 4. **Self-improvement loop**: Run automatically on schedule, or only via `forge improve` CLI?

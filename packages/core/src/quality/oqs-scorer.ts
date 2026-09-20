@@ -5,10 +5,10 @@ import type {
   ReviewResult,
   Task,
   TraceEvent,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 import { projectDriftReport } from './drift-report.js';
 
-export type { OQSScore } from '@forge/contracts';
+export type { OQSScore } from '@runforge/contracts';
 
 export interface OQSInput {
   task: Task;

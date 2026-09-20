@@ -1,7 +1,7 @@
 import type {
   Task,
   TaskComplexity,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 export interface ComplexityClassifierOptions {
   /** Enable detailed signal logging for debugging */

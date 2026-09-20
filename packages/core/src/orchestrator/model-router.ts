@@ -2,7 +2,7 @@ import type {
   Task,
   TaskComplexity,
   ModelCapability,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 export interface ModelRoutingOptions {
   /** Cost budget per task (USD) */

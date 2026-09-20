@@ -1,7 +1,7 @@
 // Weakness Miner — analyzes failure traces to identify reusable failure mechanisms.
 // Based on Self-Harness (Zhang et al.) + HALO + ACE patterns.
 import { loadTraceEvents } from '../trace/jsonl.js';
-import type { TraceEvent, VerificationResult } from '@forge/contracts';
+import type { TraceEvent, VerificationResult } from '@runforge/contracts';
 
 export type FailureMechanism =
   | 'missing_final_artifact'

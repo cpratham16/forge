@@ -7,7 +7,7 @@ import type {
   ModelResponse,
   ToolCall,
   AdapterConformance,
-} from '@forge/contracts';
+} from '@runforge/contracts';
 
 export interface ClaudeModelProviderOptions {
   apiKey?: string;

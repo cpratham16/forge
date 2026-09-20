@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { forgeRun } from '../src/index.js';
 import { traceShow, traceList } from '../src/commands/trace.js';
-import type { ToolCall } from '@forge/contracts';
+import type { ToolCall } from '@runforge/contracts';
 
 describe('forgeRun integration — tools wired at the composition root', () => {
   it('executes a scripted read → edit → run task and materialises the change in the workspace', async () => {

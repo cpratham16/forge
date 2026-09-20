@@ -1,5 +1,5 @@
 // `forge validate` — run regression validation on a proposal.
-import type { TaskSpec } from '@forge/adapters';
+import type { TaskSpec } from '@runforge/adapters';
 
 export async function validateCommand(args: string[]): Promise<string> {
   const asJson = args.includes('--json');
@@ -19,7 +19,7 @@ export async function validateCommand(args: string[]): Promise<string> {
     return { passed: true, cost: 0.001, latencyMs: 1000 };
   };
 
-  const { RegressionValidator } = await import('@forge/adapters');
+  const { RegressionValidator } = await import('@runforge/adapters');
   const validator = new RegressionValidator({
     harnessRunner,
     heldInTasks,

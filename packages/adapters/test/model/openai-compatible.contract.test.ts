@@ -2,7 +2,7 @@
 // Runs the same contract test suite as the mock and Claude adapters.
 import { describe } from 'vitest';
 import { modelProviderContractTests } from './contract.test.js';
-import type { ModelProvider } from '@forge/contracts';
+import type { ModelProvider } from '@runforge/contracts';
 import { OpenAICompatibleModelProvider } from '../../src/model/openai-compatible.js';
 
 describe('OpenAI-Compatible ModelProvider', () => {

@@ -5,7 +5,7 @@
 // benchmark.
 import { describe, it, expect } from 'vitest';
 import { scoreRigorPillars } from '../src/quality/rigor-pillar-scorer.js';
-import type { Task, TraceEvent } from '@forge/contracts';
+import type { Task, TraceEvent } from '@runforge/contracts';
 
 function ev(type: TraceEvent['type'], agent: string, payload: Record<string, unknown> = {}): TraceEvent {
   return { id: `evt-${Math.random().toString(36).slice(2)}`, timestamp: 1, type, agent, payload };
